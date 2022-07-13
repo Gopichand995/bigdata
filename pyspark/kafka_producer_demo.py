@@ -24,4 +24,4 @@ if __name__ == "__main__":
         message = house
         print(f"Message to be print: {message}")
         kafka_prod_obj.send(KAFKA_TOPIC_NAME, message)
-        time.sleep(1)
+        time.sleep(20)

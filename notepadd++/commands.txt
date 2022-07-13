@@ -1,0 +1,113 @@
+########################################################################################
+About CommonUtils Package
+jc3commonutils is a Python library for dealing JCCC backend services and Scheduler components..
+
+Setup details
+1)Pull the repo CommonUtils from Git.
+2)Go to /CommonUtils/src/jc3commonutils/config/configuration.json and change the path for ROOT, BULK_PATH, SHARED_FOLDER, LOG_PATH, BULK_INPUT. If you do not have these folders in your system, please create and put the physical path in the json file. See the example below:
+    "DATASTORE": "/JCC/dataStore/",
+    "BULK_PATH": "/JCC/bulkPath/",
+    "SHARED_FOLDER": "/JCC/sharedFolder/",
+    "BULK_INPUT": "/JCC/bulkInput/",
+    "TEMPLATE_PATH": "/JCC/templatePath/",
+    "LOG_PATH": "/JCC/logPath/",
+    "POSTING_HEADER": "/JCC/postingHeader/",
+    "OUTPUT_FORMAT": "/JCC/outputFormat/",
+    "MASTER_RULE": "/JCC/masterRule/",
+3)copy ssl certificate and key (cert.pem and key.pem) to path "/JCC/certPath/" and rename cert.pem to tls.cert and key.pem to tls.key
+4)copy 2 json files from old folder MASTER_RULE to new master_rule path "/JCC/masterRule/".
+5)Open command prompt go to the folder CommonUtils and run the below command
+    python setup.py sdist bdist_wheel clean --all
+6)Go to folder CommonUtils/dist and you will get two files - tar and whl
+
+7)Open command prompt and run below command
+
+pip install <whl file with full path>
+(Example below -)
+pip install C:/Prjct/CommonUtils/dist/jc3commonutils-1.0.0-py3-none-any.whl
+
+8)After successful installation, jc3commonutils package is installed in your local machine.
+
+9)If you want change anything in configuration.json after creation of package jc3commonutils, uninstall the package by below step and delete folder build, jc3commonutils.egg-info and dist from C:/Prjct/CommonUtils and install again using above steps (2 to 6).
+
+pip uninstall jc3commonutils
+
+########################################################################################
+
+jccc-client-env-programs journal sftp vm python run commands
+
+(1)python setup.py sdist bdist_wheel clean --all       -----> commonutils folder
+(2)from the dist folder copy the whl file into the packages directory
+(3)pip uninstall jc3datautils      when changed(before pip install(4))
+(4)pip install --user -r requirements.txt --no-index --find-links=packages                -----> R2R_JOURNAL_DATA_EXTRACTION_PROGRAM folder
+
+abc .csv C:\journals_project_path\sftp\DOCUMENT_DATA\4030_05-04-2021_Result_AS400_SS_MinimalRisk_VPC-QA-KOL_IND
+
+
+tar -cvf R2R_JOURNAL_DATA_EXTRACTION_PROGRAM.tar R2R_JOURNAL_DATA_EXTRACTION_PROGRAM PGP_KEYS
+https://ibm.ent.box.com/folder/131832404037
+
+########################################################################################
+start redis from C:\Redis-x64-3.0.504 and run redis-server
+(base) C:\Users\GopichandBarri\Documents\Github\JCCC-BE\src\main\jccc_be>python wsgi.py
+(base) C:\Users\GopichandBarri\Documents\Github\JCCC-ORCT\jc3-orct>node app.js    ------------------------> npm install for git pull
+(base) C:\Users\GopichandBarri\Documents\Github\Journals-Command-Control\jc3-ui>ng serve   ------------------------> npm install for git pull
+(base) C:\Users\GopichandBarri\Documents\Github\JCCC-FILE-DOWNLOAD\src\main\jccc_file_download   ------> (1) python wsgi.py ------> (2) celery -A jccc_file_download.celery worker
+
+########################################################################################
+(base) C:\Users\GopichandBarri\Documents\Github\SeleniumPractice\Automation> python rerun.py --jid 4088 --rundate 23/7/2021
+
+########################################################################################
+git commands
+git config --global user.name "Your Name"
+git config --global user.email you@example.com
+
+git pull --allow-unrelated-histories
+git merge & checkout branches
+
+add only modified/deleted files to git
+git add -u 
+
+########################################################################################
+
+logDNA filters
+
+timestamp:1627645734081
+namespace:r2rjournal-int 4021
+
+########################################################################################
+selenium pytest commands
+pytest -s -v TestCases\test_admin.py::<ClassName>::<function_name>
+pytest -s -v -m "sanity" TestCases\test_rerun.py::TestReRun::test_rerun --browser chrome --html name.html
+########################################################################################
+Post Gre SQL port forwarding
+
+db connection postgres port forward CLI configure one time
+ibmcloud plugin install container-service
+
+ibmcloud login -a cloud.ibm.com -r eu-de --sso
+ibmcloud ks cluster config --cluster amecluster-eu-de-1-c2
+kubectl port-forward postgres-postgresql-master-0 5432:5432 -n r2rbackend
+
+########################################################################################
+kubernetes pods
+
+ibmcloud login --sso
+ibmcloud ks cluster config -c amecluster-eu-de-1-c2
+kubectl config set-context --current --namespace=r2rjournals-dev
+
+kubectl get pods
+kubectl get deployment
+kubectl get service
+kubectl logs jccc-combiner-deployment-d74bddbdb-24w9x
+
+########################################################################################
+
+pytest -s -v TestCases\test_journal.py --browser chrome --html Reports\journal_automation.html --capture sys
+(base) C:\Users\GopichandBarri\Documents\Github\JCCC-UI-ATOMATION>pytest -s -v TestCases\test_advisor.py
+
+########################################################################################
+flask virtual environemnt commands
+conda create --name <environemnt_name>
+conda deactivate <environemnt_name>
+conda deactivate

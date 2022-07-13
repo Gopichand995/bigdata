@@ -1,0 +1,168 @@
+Useful URLs
+https://cloud.ibm.com/
+https://jsoneditoronline.org/
+https://www.base64decode.org/
+https://www.rahulshettyacademy.com/AutomationPractice/
+https://www.edureka.co/community/9280/error-stale-element-reference-element-attached-page-document
+https://stackoverflow.com/questions/57741875/selenium-common-exceptions-elementclickinterceptedexception-message-element-cl
+https://www.dataquest.io/blog/tutorial-add-column-pandas-dataframe-based-on-if-else-condition/
+
+ibm hcl verse inotes
+https://gd.mail.ibm.com/mail/1/7/gopbarri-744.nsf/iNotes/Mail/?OpenDocument
+
+IBM KOLKATA DEV V2(dev url): 
+https://ikdv5fcd89bfb2eb-journal.amecluster-eu-de-1-c2-617215335b792d24b1b9231440cb6afc-0000.eu-de.containers.appdomain.cloud/home
+
+VPC-DEV
+https://ikdv5fcd89bfb2eb-journal.amecluster-eu-de-1-c2-617215335b792d24b1b9231440cb6afc-0000.eu-de.containers.appdomain.cloud
+https://ikdv5fcd89bfb2eb-journal.amecluster-eu-de-1-c2-617215335b792d24b1b9231440cb6afc-0000.eu-de.containers.appdomain.cloud/?pg=PGID-46f7c7b5-9be1-41f4-ab98-28b38eeb5b0c     ------>new
+VPC QA
+https://journals-qa.amecluster-eu-de-1-c2-617215335b792d24b1b9231440cb6afc-0000.eu-de.containers.appdomain.cloud
+[5:42 PM] in qa can use avik / sayantan mail id as user id of BA
+
+
+angular js 
+https://www.tutorialspoint.com/angularjs/angularjs_quick_guide.htm
+
+regex in selenium
+https://www.tutorialspoint.com/how-to-use-regular-expressions-in-css-in-selenium-with-python
+
+assign value to column pandas
+https://www.edureka.co/community/72317/how-add-multiple-columns-to-pandas-dataframe-one-assignment
+
+sql concepts
+https://bytescout.com/blog/deep-sql-queries-and-examples.html#2
+
+split pandas dataframe column by seperator
+https://www.geeksforgeeks.org/split-a-text-column-into-two-columns-in-pandas-dataframe/
+https://stackoverflow.com/questions/14745022/how-to-split-a-dataframe-string-column-into-two-columns
+
+sort the dataframe based on a column
+https://realpython.com/pandas-sort-python/
+https://thispointer.com/pandas-sort-rows-or-columns-in-dataframe-based-on-values-using-dataframe-sort_values/
+
+pandas optimization
+https://engineering.upside.com/a-beginners-guide-to-optimizing-pandas-code-for-speed-c09ef2c6a4d6
+https://blog.softhints.com/pandas-create-dataframe-with-random-values/
+
+nested case statements SQL
+https://stackoverflow.com/questions/505747/best-way-to-do-nested-case-statement-logic-in-sql-server
+
+restore checkout filename
+https://stackoverflow.com/questions/7147270/hard-reset-of-a-single-file
+
+form 16 income tax returns
+https://ibmitproof.pvmcs.com/form16/index.aspx
+
+IBM Data Science L1 Support Certifcation
+https://w3.ibm.com/w3publisher/data-scientist-profession/certification-roadmap/l1-experienced-level
+
+band progression/promotion eligibility criteria
+https://pgadalprtp101.w3-969.ibm.com:8443/PRAutomation/#/gbsEmpView
+
+big O cheatsheat
+https://www.bigocheatsheet.com/
+
+youtube channels for programming
+telusko
+https://www.youtube.com/c/telusko/playlists
+codebasics
+https://www.youtube.com/c/codebasics/playlists
+mycodeschool youtube
+https://www.youtube.com/channel/UClEEsT7DkdVO_fkrBw0OTrA
+jenny's lectures cs/it
+https://www.youtube.com/channel/UCM-yUTYGmrNvKOCcAl21g3w
+
+rank vs dense_rank sql
+https://www.sqlshack.com/overview-of-sql-rank-functions/
+
+quick sort types
+https://www.geeksforgeeks.org/hoares-vs-lomuto-partition-scheme-quicksort/
+
+celery flask
+https://www.youtube.com/watch?v=69vpylT2Dts&list=PLL2hlSFBmWwyFJrwLGY-Ja9MpMe4TVkZC&ab_channel=soumilshah1995
+
+machine learning jupyter notebook practice
+https://github.com/ageron/handson-ml2
+
+remove quote in string execute string as command eval
+https://www.tutorialspoint.com/How-do-I-execute-a-string-containing-Python-code-in-Python#:~:text=If%20you%20want%20to%20execute,exec(my_code)%20Hello%20World!
+
+ordered counter in dict
+https://stackoverflow.com/questions/35446015/creating-an-ordered-counter
+
+How to Request  access to  CPS Platform groups _General_v2
+https://iam02.extnet.ibm.com/itim/ui/Login.jsp
+
+useful courses links
+https://docs.google.com/document/d/1TfB48iJcCAPaQYiOgB70_QgBXyGaU33nYyUZ6lgtLl8/edit
+
+flask tutorial yourlearning
+https://ibm-learning.udemy.com/course/python-and-flask-bootcamp-create-websites-using-flask/learn/lecture/9345688#overview
+
+checkpoints new link
+https://cloud.workhuman.com/conversations/#!/dashboard/ibmcorp/14680872
+
+apache spark
+https://ibm-learning.udemy.com/course/apache-spark-programming-in-python-for-beginners/learn/lecture/20156774#overview
+https://ibm-learning.udemy.com/course/taming-big-data-with-apache-spark-hands-on/
+https://ibm-learning.udemy.com/course/the-ultimate-hands-on-hadoop-tame-your-big-data/
+
+kaggle
+netflix movie recommendations
+https://www.kaggle.com/laowingkin/netflix-movie-recommendation/data?select=qualifying.txt
+
+free images website
+https://unsplash.com/
+
+pytest fixtures setup & teardown
+https://www.opcito.com/blogs/enhanced-test-automation-with-selenium-webdriver-and-pytest
+https://www.seleniumeasy.com/python/using-fixtures-in-pytest#:~:text=In%20pytest%2C%20we%20have%20fixtures,modules%2C%20classes%20or%20whole%20projects.&text=In%20pytest%2C%20we%20mark%20a,fixture%20to%20create%20fixtures.
+
+
+ibm udemy angular2
+https://ibm-learning.udemy.com/course/the-complete-guide-to-angular-2/
+
+
+IBM Cloud Technical Advocate (formerly known as IBM Cloud Associate Solution Advisor)
+https://yourlearning.ibm.com/activity/PLAN-3D589A8D2EDD
+
+apache kafka ibm certification BD0123EN	
+https://cognitiveclass.ai/courses/simplyfingdatapipelines
+https://courses.cognitiveclass.ai/courses/course-v1:BDU+BD0123EN+v1/courseware/407a9f86565c44189740699636b4fb85/12eab34ec218468995e4d06566ef4a32/?child=first
+
+############################################################################################################################
+
+big data foundations level 2
+big data 101 -----> https://courses.cognitiveclass.ai/courses/course-v1:CognitiveClass+BD0101EN+v2/course/
+hadoop 101 -------> https://courses.cognitiveclass.ai/courses/course-v1:BigDataUniversity+BD0111EN+v1/course/
+spark fundamentals ----> https://courses.cognitiveclass.ai/courses/course-v1:BigDataUniversity+BD0211EN+v1/course/
+
+############################################################################################################################
+
+hadoop foundations level 2
+MapReduce and YARN ---> https://cognitiveclass.ai/courses/mapreduce-and-yarn/
+Moving Data into Hadoop ---> https://cognitiveclass.ai/courses/flume-sqoop-moving-data-into-hadoop/
+Accessing Hadoop Data Using Hive ---> https://cognitiveclass.ai/courses/hadoop-hive/
+
+############################################################################################################################
+Big Data & Hadoop Full Course - Learn Hadoop In 10 Hours | Hadoop Tutorial For Beginners | Edureka
+https://www.youtube.com/watch?v=1vbXmCrkT3Y&t=20950s&ab_channel=edureka%21
+
+##############################
+Python API Development - Comprehensive Course for Beginners
+https://www.youtube.com/watch?v=0sOvCWFmrtA&ab_channel=freeCodeCamp.org
+
+##############################
+windows project python virtual environment (virtualenv) venv
+https://mothergeo-py.readthedocs.io/en/latest/development/how-to/venv-win.html
+
+
+IRR Claimwait exception tool
+https://inmbzp8156.in.dst.ibm.com/IORR/SSPProgressionRequest
+
+Devices @ IBM Laptop Refresh
+https://devices.wdc1a.cirrus.ibm.com/#/
+
+LPA (Locked Period Adjustment)
+http://ibm.biz/LPAIndia

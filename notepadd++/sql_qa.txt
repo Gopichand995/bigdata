@@ -1,0 +1,30 @@
+select JI.name, JSL.jid, JSL.filename, CSL.locationname, JSL.fieldid, 'Field'||dense_rank () OVER ( PARTITION BY CSL.locationname, JSL.filename 
+order by JSL.fieldid asc ) as field_rank, JSL.fieldvalue 
+from r2rqa_ikq15ef61_pgid_70bd8cb6.journal_source_location JSL, 
+	 r2rqa_ikq15ef61_pgid_70bd8cb6.company_source_location CSL, 
+	r2rqa_ikq15ef61_pgid_70bd8cb6.journal_info JI 
+where JSL.jid = JI.id 
+and JSL.locationid = CSL.locationid 
+and JSL.fieldvalue IS NOT null 
+and JSL.fieldvalue !='' 
+order by JSL.jid, JSL.locationid asc, CSL.locationname, JSL.filename asc, JSL.fieldid asc
+
+
+
+
+select * from r2rqa_ikq15ef61_pgid_70bd8cb6.journal_info ji 
+limit 10
+
+select * from r2rqa_ikq15ef61_pgid_70bd8cb6.journal_source_location jsl 
+where jid = 4004
+
+select distinct locationname from r2rqa_ikq15ef61_pgid_70bd8cb6.company_source_location csl 
+
+select distinct filename from r2rqa_ikq15ef61_pgid_70bd8cb6.journal_source_location jsl 
+
+select 'Field'||dense_rank () OVER ( PARTITION BY CSL.locationname, JSL.filename 
+order by JSL.fieldid asc ) as field_rank
+from r2rqa_ikq15ef61_pgid_70bd8cb6.journal_source_location JSL, 
+	 r2rqa_ikq15ef61_pgid_70bd8cb6.company_source_location CSL, 
+	 r2rqa_ikq15ef61_pgid_70bd8cb6.journal_info JI
+limit

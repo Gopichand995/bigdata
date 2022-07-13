@@ -32,17 +32,18 @@ DATA_FILE_PATH = "C:/Users/04647U744/Documents/Github/pyspark/realestate.csv"
 
 CASSANDRA_HOST = "localhost"
 CASSANDRA_PORT = "9042"
-CASSANDRA_KEYSPACE = "realestate"
-CASSANDRA_TABLE = "house"
+# CASSANDRA_KEYSPACE = "realestate"
+# CASSANDRA_TABLE = "house"
 
 
 def save_to_cassandra(df_, epoch_id):
+    print(f"df_: \n{df_}")
     print(f"Printing epoch id: {epoch_id}")
 
     print(f"Printing before cassandra table save: {epoch_id}")
 
-    df_.write.format("org.apache.sql.cassandra").mode("append").options(table=CASSANDRA_TABLE,
-                                                                        keyspace=CASSANDRA_KEYSPACE).save()
+    df_.write.format("org.apache.spark.sql.cassandra").options(table="house", keyspace="realestate")\
+        .save(mode="append")
     print(f"Printing after cassandra table save: {epoch_id}")
 
 
@@ -50,10 +51,12 @@ if __name__ == "__main__":
     print("Welcome to Pyspark Data Processing Application")
     print(time.strftime("%y-%m-%d %H:%M:%S"))
 
-    spark = SparkSession.builder.appName("Pyspark Structured Streaming with Kafka & Cassandra").master("local[*]") \
+    spark = SparkSession.builder.appName("Pyspark Structured Streaming with Kafka & Cassandra") \
+        .master("local[*]") \
         .config("spark.cassandra.connection.host", CASSANDRA_HOST) \
         .config("spark.cassandra.connection.port", CASSANDRA_PORT) \
         .getOrCreate()
+
     spark.sparkContext.setLogLevel("ERROR")
 
     df = spark.readStream.format("kafka") \
@@ -61,22 +64,32 @@ if __name__ == "__main__":
         .option("subscribe", KAFKA_TOPIC_NAME) \
         .option("startingOffsets", "earliest") \
         .load()
-    print(f"Printing the Schema of df: \n {df.printSchema()}")
-
-    df1 = df.selectExpr("CAST(value as STRING)", "timestamp")
+    df.selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)")
+    # print(f"Printing the Schema of df: \n {df.printSchema()}")
 
     house_schema = StructType() \
-        .add("no", IntegerType()) \
-        .add("timestamp", StringType()) \
-        .add("houseage", IntegerType()) \
-        .add("distancetomrt", IntegerType()) \
-        .add("numberconveniencestores", IntegerType()) \
-        .add("latitude", IntegerType()) \
-        .add("longitude", IntegerType()) \
-        .add("priceofunitarea", IntegerType())
+        .add("no", StringType()) \
+        .add("timestamp1", StringType()) \
+        .add("houseage", StringType()) \
+        .add("distancetomrt", StringType()) \
+        .add("numberconveniencestores", StringType()) \
+        .add("latitude", StringType()) \
+        .add("longitude", StringType()) \
+        .add("priceofunitarea", StringType())
 
-    df2 = df1.select(from_json(col("value"), house_schema).alias("house"), "timestamp")
-    df3 = df2.select("house.*", "timestamp")
-    df3.writeStream.trigger(processingTime='15 seconds').outputMode("update").foreachBatch(save_to_cassandra).start()
+    house_stream = df.select(from_json(col("value").cast("string"), house_schema).alias("parsed_house_values"))
 
-    spark.stop()
+    house_data = house_stream.select("parsed_house_values.*")
+
+    house_data.writeStream.trigger(processingTime='15 seconds').outputMode("update").foreachBatch(
+        save_to_cassandra).start()
+    qry = house_data.writeStream.outputMode("append").format("console").start()
+
+    qry.awaitTermination()
+
+    #
+    # df2 = df.select(from_json(col("value"), house_schema).alias("house"), "timestamp")
+    # df3 = df2.select("house.*", "timestamp")
+    # df3.writeStream.trigger(processingTime='15 seconds').outputMode("update").foreachBatch(save_to_cassandra).start()
+
+    # spark.stop()

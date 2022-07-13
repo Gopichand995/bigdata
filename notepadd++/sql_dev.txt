@@ -1,0 +1,138 @@
+select * from r2rdev_ikdv5fcd8_pgid_46f7c7b5.journal_group_master jgm 
+where isactive = true 
+and coalesce(isdeleted, false) = false 
+
+
+select * from r2rdev_ikdv5fcd8_pgid_46f7c7b5.journal_download_trace jdt 
+where itemname = 'source_metadata_for_all_journals'
+order by id desc
+
+select * from r2rdev_ikdv5fcd8_pgid_46f7c7b5.journal_info ji 
+--where ispaused = false
+where status in ('Approved') 
+and ji.frequency != 'Adhoc'
+order by id asc
+
+select JI.name, JSL.jid, JSL.filename, CSL.locationname, JSL.fieldid, 'Field'||dense_rank () OVER ( PARTITION BY CSL.locationname, JSL.filename 
+order by JSL.fieldid asc ) as field_rank, JSL.fieldvalue 
+from r2rdev_ikdv5fcd8_pgid_46f7c7b5.journal_source_location JSL, 
+	 r2rdev_ikdv5fcd8_pgid_46f7c7b5.company_source_location CSL, 
+	r2rdev_ikdv5fcd8_pgid_46f7c7b5.journal_info JI 
+where JSL.jid = JI.id 
+and JSL.locationid = CSL.locationid 
+and JSL.fieldvalue IS NOT null 
+and JSL.fieldvalue !='' 
+and JI.status = 'Approved'
+and JI.ispaused = false 
+order by JSL.jid, JSL.locationid asc, CSL.locationname, JSL.filename asc, JSL.fieldid asc
+
+
+select * from r2rdev_ikdv5fcd8_pgid_46f7c7b5.company_source_location csl 
+select distinct filename from r2rdev_ikdv5fcd8_pgid_46f7c7b5.journal_source_location jsl 
+
+
+
+select * from r2rdev_ikdv5fcd8_pgid_46f7c7b5.companies c 
+
+SELECT * FROM r2rdev_ikdv5fcd8_pgid_46f7c7b5.JOURNAL_FINANCIAL_MONTH WHERE
+                        COMPANYID = '993f260b-e1b0-49c3-b142-b0456a2707888' AND STARTDATE <= '2021-08-13' ORDER BY STARTDATE desc
+  
+
+delete from r2rdev_ikdv5fcd8_pgid_46f7c7b5.journal_download_trace jdt 
+where id in (498)
+
+SELECT MONTH, YEAR FROM r2rdev_ikdv5fcd8_pgid_46f7c7b5.JOURNAL_FINANCIAL_MONTH 
+WHERE COMPANYID = '993f260b-e1b0-49c3-b142-b0456a2707888' 
+AND STARTDATE <= '2021-08-16'  
+ORDER BY STARTDATE DESC
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+with
+grp as (
+        select grp_mas.id groupid, grp_mas.name groupname,
+           grp_mem.id elementid, grp_mem.name elementname
+        from  r2rdev_ikdv5fcd8_pgid_46f7c7b5.journal_group_master grp_mas,
+              r2rdev_ikdv5fcd8_pgid_46f7c7b5.journal_group_members grp_mem
+        where grp_mas.id = grp_mem.groupid
+        and grp_mas.isactive = true
+        and coalesce(isdeleted, false) = false
+),
+jrgrpele as (
+                select jr_grp.jid,
+                    string_agg(
+                    (grp.groupname || '=`!' || grp.elementname)
+                    ,'^|~' order by jr_grp.groupid, jr_grp.elementid ) grpelestr
+                from r2rdev_ikdv5fcd8_pgid_46f7c7b5.journal_group_element jr_grp
+                     inner join grp on (jr_grp.groupid = grp.groupid and jr_grp.elementid = grp.elementid)
+                group by jr_grp.jid
+            )
+select ji.id, jrgrpele.grpelestr
+from r2rdev_ikdv5fcd8_pgid_46f7c7b5.journal_info ji
+left outer join jrgrpele on (jrgrpele.jid = ji.id)
+
+select jid, filename, target, isactive from r2rdev_ikdv5fcd8_pgid_aff54e7a.journal_anomaly_config where jid = 4191
+
+select * from r2rdev_ikdv5fcd8_pgid_46f7c7b5.journal_rerun_version jrv 
+where jid = 4191
+
+
+select JI.name, JSL.jid, JSL.filename, 'EXTRACTED_DATA' as downloadpath, CSL.locationname,
+                         JSL.fieldid, 'Field'||RANK () OVER ( PARTITION BY CSL.locationname, JSL.filename 
+                         order by JSL.fieldid asc ) as field_rank, JSL.fieldvalue from 
+                         r2rdev_ikdv5fcd8_pgid_37b6a161.JOURNAL_SOURCE_LOCATION JSL, 
+                         r2rdev_ikdv5fcd8_pgid_37b6a161.COMPANY_SOURCE_LOCATION CSL, 
+                         r2rdev_ikdv5fcd8_pgid_37b6a161.JOURNAL_INFO JI where JSL.jid = JI.id and
+                                  JSL.locationid = CSL.locationid and JSL.fieldvalue IS NOT null and 
+                                  JSL.fieldvalue !='' order by JSL.jid, JSL.locationid asc, CSL.locationname,
+                                  JSL.filename asc, JSL.fieldid asc
+                                  
+select * from r2rdev_ikdv5fcd8_pgid_46f7c7b5.JOURNAL_SOURCE_LOCATION JSL where JSL.jid = 4222
+select * from r2rdev_ikdv5fcd8_pgid_46f7c7b5.COMPANY_SOURCE_LOCATION CSL
+select * from r2rdev_ikdv5fcd8_pgid_46f7c7b5.JOURNAL_INFO JI where JI.frequency != 'Adhoc'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,250 @@
+Hi Gopi / Sowmya / Harsha,
+
+As per our discussion please start development  as mentioned below. 
+
+Task : JOURNALS-653: CR - Download Journal List from each circular graph  ( sla metrics )
+Assigned: Gopichand Barri
+Api help: '/getSlaDayCount' (journal_home_new.py)
+
+Task :  JOURNALS-652: CR - Download Journal List from Classic Home    ( data part only)	
+Assigned: Puvvadi Sowmyalakshmi
+Api help: '/journalHomeNew' (journal_home_new.py)
+
+Task :  JOURNALS-631: CR - Download Journal List from Old Home     ( data part only)	
+Assigned: Harsha Deuri
+Api help: '/journalHome' ( journal_home.py)
+
+1. Journal Home related all download facility will be in OFFLINE mode 
+2. Download will  generate EXCEL file (.xlsx) 
+3. Redis-x64-3.0.504 ( provided through slack)
+4. Local set up:
+	Repository : JCCC-FILE-DOWNLOAD
+	Main file : jccc_file_download.py  ( JCCC-FILE-DOWNLOAD\src\main\ )
+
+	(i) start redis 
+	(ii) start jccc-file-download  : python wsgi.py
+	(iii) start jccc-file-download-celery-worker  : celery -A jccc_file_download.celery worker
+	
+#######################################################
+business admin: id: sayantas@in.ibm.com pwd: r2r123
+approver: id: monika.murmu@in.ibm.com  pwd: r2r123
+approver: id: gopbarri@in.ibm.com  pwd: r2r123
+sayasen1, r2r123
+#######################################################
+	
+app run paths
+(base) C:\Users\GopichandBarri\Documents\Github\JCCC-BE\src\main\jccc_be>python wsgi.py
+(base) C:\Users\GopichandBarri\Documents\Github\JCCC-ORCT\jc3-orct>node app.js    ------------------------> npm install for git pull
+(base) C:\Users\GopichandBarri\Documents\Github\Journals-Command-Control\jc3-ui>ng serve   ------------------------> npm install for git pull
+(base) C:\Users\GopichandBarri\Documents\Github\JCCC-FILE-DOWNLOAD\src\main\jccc_file_download   ------> (1) python wsgi.py ------> (2) celery -A jccc_file_download.celery worker
+
+#######################################################
+
+C:\Users\GopichandBarri\Documents\Github\JCCC-ORCT\jc3-orct\config envCOnfig.dev.json in IS_AUTO_LOG_OFF_WORK("F"), IS_REDIS_ENABLE("F"), KC_ENABLED("T")
+APIs: /genericDownload, /downloadListByUserId, /getSlaDayCount 
+celery is an open asynchronous task queue based on distributed message passing
+
+https://ikdv5fcd89bfb2eb-journal.amecluster-eu-de-1-c2-617215335b792d24b1b9231440cb6afc-0000.eu-de.containers.appdomain.cloud/jccc-orct/putServices?url=/AAA334ER/journalHomeNew55224032
+https://localhost:8011/downloadListByUserId
+
+companyCodes
+R2RDEV_IKDV5FCD8_PGID_46F7C7B5 ---> VPC DEV
+r2rdev_dkl488ee8_pgid_1d8e45ed ---> Local
+
+sla query 13 params
+company_id, curr_date, company_id, curr_date, role_name, user_id, role_name, user_id, role_name, user_id, role_name, user_id, company_id
+
+#######################################################
+{"jid": 4006, 
+"runDate": "19-03-2021", 
+"reqInfo": {"userId": "WID3e618b69-fe0d-4d50-81a5-6d2ee251adf5", 
+			"userName": "sayanse1", 
+			"isKc": true, 
+			"roleId": 105, 
+			"roleName": "Business Admin", 
+			"companyId": "b9790c86-ffa5-405d-8913-c51197b6476f3", 
+			"companyName": "DEV-KOL-LOC1", 
+			"companyCode": "r2rdev_dkl488ee8_pgid_1d8e45ed", 
+			"realName": "dkl488ee8c964364", 
+			"clientId": "PGID-1d8e45ed-4eb1-4260-a8e0-5442f2434877"}}
+			
+{"jid": 4088, 
+"runDate": "16-07-2021", 
+"reqInfo": {"userId": "WID3e618b69-fe0d-4d50-81a5-6d2ee251adf5", 
+			"userName": "sayanse1", 
+			"isKc": true, 
+			"roleId": 105, 
+			"roleName": "Business Admin", 
+			"companyId": "b9790c86-ffa5-405d-8913-c51197b6476f3", 
+			"companyName": "DEV-KOL-LOC1", 
+			"companyCode": "r2rdev_dkl488ee8_pgid_1d8e45ed", 
+			"realName": "dkl488ee8c964364", 
+			"clientId": "PGID-1d8e45ed-4eb1-4260-a8e0-5442f2434877"}}
+#######################################################			
+pendingtopostinghrold
+round((extract(epoch from(to_timestamp(concat(work_day_posting.wddate, ' ', to_number(ji.postingdatetime, '9999'), ':00:00'), 'YYYY-MM-DD HH24:MI:SS') - now()))/3600)::numeric, 2) 
+
+coa_active_data
+@celery.task-------> gen_coa_active_data_download
+
+ui config  ---> https://localhost:3000    ---> local
+ui config  ---> https://ikdv5fcd89bfb2eb-journal.amecluster-eu-de-1-c2-617215335b792d24b1b9231440cb6afc-0000.eu-de.containers.appdomain.cloud/jccc-orct   ---> dev url
+
+#########################################################
+XHRpostServices?url=/downloadAuditWorkBook50159046 ----------------> {"jid":4088,"runDate":"16-07-2021","reqInfo":{}, "reqOrct":{"responseType":"json"}}
+XHRputServices?url=/AAA334ER/downloadListByUserId34210060----------> {"reqInfo":{}, "reqOrct":{"responseType":"json"}}
+XHRputServices?url=/AAA334ER/downloadListByUserId70210027----------> {"reqInfo":{}, "reqOrct":{"responseType":"json"}}
+XHRpostServices?url=/genericDownload35209064-----------------------> {"downloadId":186,"reqInfo":{"responseType":"json"}}
+XHRputServices?url=/AAA334ER/downloadListByUserId72210056----------> {"reqInfo":{}, "reqOrct":{"responseType":"json"}}
+#########################################################
+
+Thanks & Regards,
+Gopichand Barri
+Mail: gopbarri@in.ibm.com
+Mobile: 9800192040
+
+#########################################################
+1) header names
+2) slatimecovered(%) help string
+3) file location bulkinput/journalhome/temp/
+4) replace id with firstname lastname(email)
+5) if possible change the sladatetime to am/pm format
+6) for the graphical reports sort internally by jid
+7) in progress provided columns(indicator, grp1, grp2)
+#########################################################
+
+sla metrics: columns
+
+Journal Id--------------------------------------->(id)
+Journal Name-------------------------------->(jidname)
+Frequency--------------------------------->(frequency)
+Template------------------------------->(templatename)
+Calendar------------------------------->(calendarname)
+Status--------------------------------->(configstatus)
+Preparer----------------------------------->(preparer)
+Approver----------------------------------->(approver)
+Reviewer----------------------------------->(reviewer)
+Administrator----------------------------->(superuser)
+Created By-------------------------------->(createdby)
+Pending With---------------------------->(actionowner)
+Source SLA-------------------------------->(sourcesla)
+Source SLA Time----------------------->(sourceslatime)
+Source SLA Date----------------->(sourceslacaldatestr)
+Posting SLA----------------------------->(postingdate)
+Posting SLA Time-------------------->(postingdatetime)
+Posting SLA Date------------------>(postingcaldatestr)
+Financial Month Start Date------------->(finstartdate)
+Financial Month End Date----------------->(finenddate)
+Last Run Date---------------------------->(rundatestr)
+Last Run Status--------------------------->(runstatus)
+Postingt SLA Span (Hr)----------->(postingtoslahrspan)
+SLA Period (%)--------------------------->(slapercent)
+Category----------------------------------->(Category)
+SLA Time Covered------------------->(SLA Time Covered)
+
+
+# drop the following columns through the dataframe(not from the query)
+'calendarid', 
+'lastupdatedatetime',
+'statuschangedatetime', 
+'rundate', 
+'jrhid',
+'sourceslacaldate', 
+'postingcaldate', 
+'pendingtopostinghrold', 
+'pendingtopostinghr'
+
+#########################################################
+
+in progress: columns
+
+Journal Id	
+Journal Name	
+Frequency	
+Template
+Calendar
+Status
+Preparer	
+Approver	
+Reviewer
+Administrator
+Created By
+Pending With
+Source Contact
+Source SLA
+Source SLA Time
+Posting Contact
+Posting SLA 
+Posting SLA Time
+Group with element(1)
+Group with element(2)
+Indicator
+Last Run Date
+Last Run Status
+In-Progress Since (Days)
+
+#########################################################
+
+Errors
+WARNING/SpawnPoolWorker-2] c:\users\gopichandbarri\anaconda3\lib\site-packages\pandas\core\frame.py:4449: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame
+
+When inplace = True , the data is modified in place, which means it will return nothing and the dataframe is now updated. 
+When inplace = False , which is the default, then the operation is performed and it returns a copy of the object. You then need to save it to something.
+
+
+
+101	country	 101	IND
+101	country	 102	BAN
+101	country	 103	PAK
+101	country	 104	USA
+101	country	 105	CAN
+101	country	 106	UK
+102	currency 107	INR
+102	currency 108	USD
+
+1)SLA name
+2)Postingt rename
+3)UTC along with sla/posting times
+4)Init capital for Category 
+
+
+source metadata
+1) db timeout issue ------------------------------------------------------------------> done
+2) extra columns handling (25)--------------------------------------------------------> done
+3) rundate argument for posting date -------------------------------------------------> done
+4) program_name & bucket_name to be dynamically passed
+5) create_source_metadata_for_all_journals.py in commonUtils or jccc-file-download ---> done
+
+
+if run_date:
+	curr_date = datetime.datetime.strptime(run_date, "%d-%m-%Y").strftime("%Y-%m-%d")
+else:
+	curr_date = datetime.datetime.now().strftime("%Y-%m-%d")
+	
+df_fin_month = pd.read_sql(select_str3, con, params=[company_id, curr_date])
+
+rundate = date[-4:] + "-" + date[3:5] + "-" + date[:2]
+
+# as the db connection is getting timed out closing & reconnecting (50 is arbitrary number)
+if i and i % 50 == 0:
+	connection.close_db(_, con, cursor)
+	_, _, con, cursor = connection.connect_db()
+
+# (case when ji.ispaused = 'False' then cast('False' as varchar)
+#       when ji.ispaused = 'True' then cast('True' as varchar)
+#       else null end) paused,
+
+(case when ji.ispaused = 'True' then 'True'
+	  when ji.ispaused = 'False' then 'False'
+	  else null 
+end) paused,
+
+coalesce(ispaused, false) paused,
+	  
+'paused': 'Paused',
+
+"Paused",
+
+Aug 25 19:13:32
+Aug 25 18:50:28

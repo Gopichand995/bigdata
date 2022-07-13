@@ -1,0 +1,206 @@
+###########################################################################################
+
+16th June 2021
+
+selenium browser testing automation
+https://www.browserstack.com/guide/python-selenium-to-run-web-automation-test
+
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.ui import Select
+
+
+
+
+driver.implicit_wait(t)
+whereas in explicit wait, wait = WebDriverWait(driver, t) where t is max timeout but doesn't take that time to load the element
+element = wait.until(EC.element_to_be_clickable((By.XPATH, "")))
+
+#Dropdowns
+element = driver.find_element_by_id("")
+drp = Select(element)
+drp.select_by_visible_text(''), drp.select_by_index(1 or 2 or 3...), drp.select_by_value('')
+
+###########################################################################################
+
+Details: driver.title, driver.current_url
+
+Pages: driver.back, driver.forward
+
+Conditions: is_enabled, is_displayed, is_selected
+
+Waits: Implicit Wait & Explicit Wait
+
+Check Items: Radio Buttons, Checkboxes & Dropdowns
+
+
+https://admin-demo.nopcommerce.com/admin/
+
+your learning selenium 
+https://learning.oreilly.com/videos/browser-automation-with/9781800560161/9781800560161-video2_1/
+https://learning.oreilly.com/videos/selenium-python-automation/9781800567733/9781800567733-video1_1/
+
+###########################################################################################
+
+Error1:  Internet Explorer Driver not working
+selenium.common.exceptions.WebDriverException: Message: Unexpected error launching Internet Explorer. IELaunchURL() returned 800700C1 for URL 'http://localhost:56195/'
+
+Solution:
+https://stackoverflow.com/questions/25047318/unexpected-error-launching-internet-explorer-ielaunchurl-returned-800700c1
+It seems a bit odd, but when I checked, there was a 0 byte "Program" file in the root of the C drive. I deleted the file and the issue went away.
+
+############################################################################################
+
+success-color & fail-color ids: notooltip_imgFail_0, notooltip_imgPass_0
+
+(base) C:\Users\GopichandBarri\Documents\Github\SeleniumPractice\Automation>python rerun.py --jid 4088 --rundate 23/7/2021
+2021-07-23 13:52:23.441 | INFO     | __main__:<module>:115 - [<module>] : Initializing
+2021-07-23 13:52:23.470 | INFO     | login:login_page:14 - [login_page] : Initializing
+2021-07-23 13:52:43.353 | INFO     | login:login_page:28 - login successful
+2021-07-23 13:52:43.358 | INFO     | __main__:search_by_jid:24 - [search_by_jid] : Initializing
+2021-07-23 13:52:52.325 | INFO     | __main__:search_by_jid:29 - search by jid: 4088 successful
+2021-07-23 13:52:52.336 | INFO     | __main__:manual_run:38 - [manual_run] : Initializing
+2021-07-23 13:52:56.806 | INFO     | __main__:manual_run:53 - length of day_elements: 31
+2021-07-23 13:52:56.954 | INFO     | __main__:rerun_input_upload:65 - [rerun_input_upload] : Initializing
+2021-07-23 13:53:00.201 | INFO     | __main__:rerun_input_upload:69 - rerun_input_divs_len: 1
+2021-07-23 13:53:10.466 | INFO     | __main__:rerun_results:86 - [rerun_results] : Initializing
+2021-07-23 13:54:11.172 | ERROR    | __main__:rerun_results:101 - failed after the rerun has initiated:
+ Message:
+
+2021-07-23 13:54:11.224 | ERROR    | __main__:rerun_results:104 - rerun_status: Key Error
+2021-07-23 13:54:11.272 | ERROR    | __main__:rerun_results:107 - rerun_message: Column/Key 'Amount' defined in step 1 is either missing or not valid.
+
+(base) C:\Users\GopichandBarri\Documents\Github\SeleniumPractice\Automation>
+(base) C:\Users\GopichandBarri\Documents\Github\SeleniumPractice\Automation>python rerun.py --jid 4088 --rundate 23/7/2021
+2021-07-23 13:55:37.032 | INFO     | __main__:<module>:115 - [<module>] : Initializing
+2021-07-23 13:55:37.058 | INFO     | login:login_page:14 - [login_page] : Initializing
+2021-07-23 13:55:51.760 | INFO     | login:login_page:28 - login successful
+2021-07-23 13:55:51.761 | INFO     | __main__:search_by_jid:24 - [search_by_jid] : Initializing
+2021-07-23 13:56:00.393 | INFO     | __main__:search_by_jid:29 - search by jid: 4088 successful
+2021-07-23 13:56:00.400 | INFO     | __main__:manual_run:38 - [manual_run] : Initializing
+2021-07-23 13:56:04.238 | INFO     | __main__:manual_run:53 - length of day_elements: 31
+2021-07-23 13:56:04.433 | INFO     | __main__:rerun_input_upload:65 - [rerun_input_upload] : Initializing
+2021-07-23 13:56:07.657 | INFO     | __main__:rerun_input_upload:69 - rerun_input_divs_len: 1
+2021-07-23 13:56:12.909 | INFO     | __main__:rerun_results:86 - [rerun_results] : Initializing
+2021-07-23 13:56:44.650 | INFO     | __main__:rerun_results:93 - rerun_status: Success
+2021-07-23 13:56:44.684 | INFO     | __main__:rerun_results:96 - rerun_message: Journal 4088 execute successfully for 23-07-2021.
+
+############################################################################################
+css selector for upload status icons
+div[class='cu-tbody form-group row'] [class*='center-icon']
+app-combobox[ctrlid='cmbTemplateCr'] div[class*='input-group'] app-icon-only
+div[class='cu-tbody form-group row'] [scope='row']
+############################################################################################
+validation rules master
+output[Branch] != '' AND output[Cost Center] != '' -----------> mandatory
+STARTSWITH(output[Branch], null) AND AVERAGE(output[Cost Center]) == 1 OR output[Credit] < 5 -----------> invalid data/threshold
+(   output[Branch] == '1' WHERE ( STARTSWITH(output[Cost Center], '7') ) ) == (   STARTSWITH(output[Branch], '1') AND LEN(output[Cost Center]) ==5  )  -----------> combined
+############################################################################################
+threshold or invalid data
+STARTSWITH(output[Branch], '1') AND ENDSWITH(output[Cost Center], '2') OR output[Credit] == 1 AND SUM(output[Debit]) > 1000 AND LEN(output[JE Line description]) == 10
+STARTSWITH(output[Branch], '1') AND ENDSWITH(output[Cost Center], '2') OR output[Credit] == '1.0' AND SUM(output[Debit]) > 1000 AND LEN(output[JE Line description]) == 10
+
+STARTSWITH(output[Branch], 'a') OR output[Credit] == 1 AND ENDSWITH(output[Cost Center], '2') AND SUM(output[Debit]) > 1000.1 AND LEN(output[JE Line description]) == 10.345
+STARTSWITH(output[Branch], 'a') OR output[Credit] == 1 AND ENDSWITH(output[Cost Center], '2') AND SUM(output[Debit]) > 1000.1 AND LEN(output[JE Line description]) == 10.345
+############################################################################################
+QUERY RULES
+combined
+(   output[Branch] <  OR  STARTSWITH(output[Cost Center], 10.5) WHERE ( output[Credit] == '8' AND output[Debit] == 100 WHERE ( STARTSWITH(output[JE Line description], 'i') ) ) == (   STARTSWITH(output[Date], '') AND SUM(output[Debit]) ==100.5 WHERE (LEN(output[JE Line description]) ==10 ) )
+
+( output[Branch] < OR STARTSWITH(output[Cost Center], 10.5) WHERE ( output[Credit] == '8' AND output[Debit] == 100 WHERE ( STARTSWITH(output[JE Line description], 'i') ) ) == ( STARTSWITH(output[Date], '') AND 
+SUM(output[Debit]) ==100.5 WHERE (LEN(output[JE Line description]) ==10 ) )
+
+############################################################################################
+mandatory
+output[Branch] != '' AND output[Credit] != '' OR output[JE Line description] != '' WHERE ( TYPE(output[Cost Center]) == ''numeric'' OR ENDSWITH(output[Debit], 'T') AND output[Main Acct#] == u OR LEN(output[Sub Acct#]) > 21)
+
+mandatory issue
+ERROR    root:test_admin.py:214 ****** Validation Rules Master Test Failed ****** : Message: element click intercepted: Element <li _ngcontent-cra-c126="" class="nav-item pointer ng-star-inserted">...</li> is not clickable at point (649, 149). Other element would receive the click: <div _ngcontent-cra-c62="" class="no-overlay overlay ng-star-inserted">...</div>
+                                  (Session info: chrome=92.0.4515.131)
+############################################################################################
+
+mandatory: delete_rule1
+output[Branch] != '' AND output[Cost Center] != '' OR output[Credit] != '' WHERE ( STARTSWITH(output[Branch], 'B') AND SUM(output[Credit]) >= 100.5 OR LEN(output[JE Line description]) == 10)
+output[Branch] != '' AND output[Cost Center] != '' OR output[Credit] != '' WHERE ( STARTSWITH(output[Branch], 'B') AND SUM(output[Credit]) >= 100.5 OR LEN(output[JE Line description]) == 10)
+
+mandatory: delete_rule_1
+output[Branch] != '' AND output[Cost Center] != '' OR output[Credit] != '' WHERE ( output[Credit] == 10 AND STARTSWITH(output[Branch], 'B') AND TYPE(output[JE Line description]) == ''char'')
+
+############################################################################################
+
+threshold: delete_rule2
+output[Branch] == 'B' AND STARTSWITH(output[Credit], 'C') OR LEN(output[JE Line description]) >= 10 WHERE ( output[Cost Center] == 40 AND output[Credit] <= 100.5 OR STARTSWITH(output[Main Acct#], 'M'))
+
+threshold: delete_rule2_1
+STARTSWITH(output[Branch], 'B') AND output[Date] == '01/02/2021' AND LEN(output[JE Line description]) != 10
+
+############################################################################################
+
+invalid data: delete_rule3
+output[Branch] < 'B' AND STARTSWITH(output[Credit], 'C') AND TYPE(output[JE Line description]) == 'char' WHERE ( ENDSWITH(output[Cost Center], 'R') OR TYPE(output[Debit]) == ''numeric'' OR TYPE(output[Main Acct#]) == ''char'')
+
+
+invalid data: delete_rule3_1
+output[Branch] < 'B' AND STARTSWITH(output[Credit], 'C') WHERE ( ENDSWITH(output[Cost Center], 'R'))
+output[Branch] < 'B' AND STARTSWITH(output[Credit], 'C') WHERE ( ENDSWITH(output[Cost Center], 'R')
+
+############################################################################################
+
+combined: delete_rule4
+( output[Branch] < 12 OR STARTSWITH(output[Cost Center], 10.5) WHERE ( output[Credit] == '8' AND output[Debit] == 100 WHERE ( STARTSWITH(output[JE Line description], 'i') ) ) == ( STARTSWITH(output[Date], '') AND SUM(output[Debit]) ==100.5 WHERE (LEN(output[JE Line description]) ==10 ) )
+
+( output[Branch] < 12 OR STARTSWITH(output[Cost Center], 10.5) WHERE ( output[Credit] == '8' AND output[Debit] == 100 WHERE ( STARTSWITH(output[JE Line description], 'i') ) ) == ( STARTSWITH(output[Date], '') AND SUM(output[Debit]) ==100.5 WHERE (LEN(output[JE Line description]) ==10 ) )
+
+combined: delete_rule4_1: EU_SAP_KeyStone
+( SUM(output[Amount]) WHERE ( output[Posting Key] == 40 ) ) == ( SUM(output[Amount]) WHERE ( output[Posting Key] == 50 ) )
+
+############################################################################################
+
+Automation Issues During Development
+* operator in condition creator is not differentiating the value and numeric types
+* 
+
+<div _ngcontent-knj-c199="" class="row pt-3" css="1">
+<div _ngcontent-knj-c199="" class="col">
+<div _ngcontent-knj-c199="" class="table bg-white cu-tbl only-head ng-star-inserted"></div>
+<app-table-no-records _ngcontent-knj-c199="" _nghost-knj-c64="" class="ng-star-inserted"></app-table-no-records>
+<div _ngcontent-knj-c199="" class="table-area-rs ng-star-inserted"></div>
+</div>
+</div>
+
+issues so far
+* finish the ui change at frequency in ocnfig
+* workflow --> admin/approver/reviewer/preparer/created by dropdown options not getting loaded 
+* financial month not loading error msg in red one line
+* calendar unable to select details not clickable as they reach page end
+* excel view process steps to be loaded with high pace
+* run error after validating the process steps for approval i.e. 3rd time run i.e. avoid the delay
+* run version error after rerun
+
+############################################################################################
+BOND ORDER
+P6TBVX
+Binoy Mathunni12/India/IBM@IBM
+Przemyslaw Piatek/Slovakia/IBM@IBMMail
+I have raised a request in BOND tool (Bond Cart ID - P6TBVX) as part of BCP related expenses. Please re-route my request to my PeM(rpradhan@in.ibm.com)
+
+############################################################################################
+
+P6TG2S --> headset
+P6TJ94 --> ups
+anganes1@in.ibm.com
+piatek@sk.ibm.com
+
+Serial : PC0D6URG
+Lenovo ThinkPad T460 20FMS1VA1D
+SAP inventory number	20FMPC0D6URG
+LC FRU PN: 00HM615
+Bar Code: 8S5A10H03912C1SG65D03JC
+Mandate SEZ /STPI TAG number (Applicable for all MANYATA,DLF,ETZ ThinkPad/ Think center / Monitor): 
+Embassy Links, Embassy Cypress Pt Indiranagar-Koramangala, Intermediate Ring Rd
+Bangalore, KA  560071, IN
+
+

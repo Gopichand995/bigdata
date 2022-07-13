@@ -1,0 +1,143 @@
+################################################
+C:\zookeeper-3.6.2\bin
+zkServer
+
+################################################
+C:\kafka-2.6.0
+bin\windows\kafka-server-start.bat .\config\server.properties
+
+
+kafka-topics.bat --create --topic <topic_name> --bootstrap-server localhost:9092
+kafka-topics.bat --list --bootstrap-server localhost:9092
+# kafka-topics.bat --bootstrap-server localhost:9092 --delete --topic streaming1
+kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic <topic_name>
+kafka-console-producer.bat --bootstrap-server localhost:9092 --topic <topic_name>
+kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic <topic_name> --from-beginning
+
+################################################
+C:\cassandra-3.11.13\bin
+cassandra
+cqlsh
+
+################################################
+C:\Users\04647U744\Documents\Github0\bigdata\pyspark
+spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.0,com.datastax.spark:spark-cassandra-connector_2.12:3.1.0 data_processing.py
+https://spark.apache.org/third-party-projects.html
+com.datastax.spark:spark-cassandra-connector_2.11:2.3.2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+################################################
+Useful Urls
+https://medium.com/analytics-vidhya/apache-spark-structured-streaming-with-pyspark-b4a054a7947d
+for the spark-kafka-streaming jars
+https://search.maven.org/artifact/org.apache.spark/spark-streaming-kafka-0-10-assembly_2.12/3.3.0/jar
+kafka streaming saprk connectivity solved console printing
+https://stackoverflow.com/questions/50182869/using-pyspark-and-structured-streaming-to-correctly-parse-kafka-stream-getting
+save spart streaming to cassandra
+https://stackoverflow.com/questions/64463238/writing-spark-streaming-pyspark-dataframe-to-cassandra-overwrites-table-instead
+kafka cassandra spark pyspark version issue
+https://stackoverflow.com/questions/69273060/cassandra-with-pyspark-and-python-3-6
+
+################################################
+Error1:
+2022-07-13 10:05:10,554 [myid:] - INFO  [main:NIOServerCnxnFactory@666] - Configuring NIO connection handler with 10s sessionless connection timeout, 2 selector thread(s), 16 worker threads, and 64 kB direct buffers.
+2022-07-13 10:05:10,558 [myid:] - INFO  [main:NIOServerCnxnFactory@674] - binding to port 0.0.0.0/0.0.0.0:2181
+2022-07-13 10:05:10,560 [myid:] - ERROR [main:ZooKeeperServerMain@90] - Unexpected exception, exiting abnormally
+java.net.BindException: Address already in use: bind
+        at sun.nio.ch.Net.bind0(Native Method)
+        at sun.nio.ch.Net.bind(Net.java:433)
+        at sun.nio.ch.Net.bind(Net.java:425)
+        at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223)
+        at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+        at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:67)
+        at org.apache.zookeeper.server.NIOServerCnxnFactory.configure(NIOServerCnxnFactory.java:676)
+        at org.apache.zookeeper.server.ZooKeeperServerMain.runFromConfig(ZooKeeperServerMain.java:158)
+        at org.apache.zookeeper.server.ZooKeeperServerMain.initializeAndRun(ZooKeeperServerMain.java:112)
+        at org.apache.zookeeper.server.ZooKeeperServerMain.main(ZooKeeperServerMain.java:67)
+        at org.apache.zookeeper.server.quorum.QuorumPeerMain.initializeAndRun(QuorumPeerMain.java:140)
+        at org.apache.zookeeper.server.quorum.QuorumPeerMain.main(QuorumPeerMain.java:90)
+2022-07-13 10:05:10,566 [myid:] - INFO  [main:ZKAuditProvider@42] - ZooKeeper audit is disabled.
+2022-07-13 10:05:10,568 [myid:] - ERROR [main:ServiceUtils@42] - Exiting JVM with code 1
+
+###################################
+netstat -ano|findstr "PID :8081"  #
+taskkill /pid 18264 /f            #  
+                                  #
+###################################
+Solution: in the services windows the kafka broker & kafka zookeeper are already running and spo manually stop them and rerun the zkserver again to run appropriately
+
+################################################
+Error2:
+22/07/13 11:17:09 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, host.docker.internal, 59055, None)
+22/07/13 11:17:09 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, host.docker.internal, 59055, None)
+Traceback (most recent call last):
+  File "C:/Users/04647U744/Documents/Github0/bigdata/pyspark/data_processing.py", line 47, in <module>
+    .option("startingOffsets", "latest") \
+  File "C:\spark3\python\lib\pyspark.zip\pyspark\sql\streaming.py", line 469, in load
+  File "C:\spark3\python\lib\py4j-0.10.9.5-src.zip\py4j\java_gateway.py", line 1322, in __call__
+  File "C:\spark3\python\lib\pyspark.zip\pyspark\sql\utils.py", line 196, in deco
+pyspark.sql.utils.AnalysisException:  Failed to find data source: kafka. Please deploy the application as per the deployment section of "Structured Streaming + Kafka Integration Guide".
+
+
+Solution:
+
+
+################################################
+ERROR3: Error while renaming dir for streaming1-0 in log dir C:\kafka-2.6.0\data\broker1 (kafka.server.LogDirFailureChannel)
+__consumer_offsets-22,__consumer_offsets-30,__consumer_offsets-8,__consumer_offsets-21,__consumer_offsets-4,__consumer_offsets-27,__consumer_offsets-7,__consumer_offsets-9,__consumer_offsets-46,__consumer_offsets-25,__consumer_offsets-35,__consumer_offsets-41,__consumer_offsets-33,__consumer_offsets-23,__consumer_offsets-49,__consumer_offsets-47,__consumer_offsets-16,__consumer_offsets-28,__consumer_offsets-31,__consumer_offsets-36,__consumer_offsets-42,__consumer_offsets-3,__consumer_offsets-18,__consumer_offsets-37,house-0,__consumer_offsets-15,__consumer_offsets-24,__consumer_offsets-38,__consumer_offsets-17,__consumer_offsets-48,__consumer_offsets-19,__consumer_offsets-11,house2-0,__consumer_offsets-13,__consumer_offsets-2,__consumer_offsets-43,__consumer_offsets-6,__consumer_offsets-14,__consumer_offsets-20,__consumer_offsets-0,__consumer_offsets-44,__consumer_offsets-39,__consumer_offsets-12,__consumer_offsets-45,__consumer_offsets-1,__consumer_offsets-5,__consumer_offsets-26,__consumer_offsets-29,__consumer_offsets-34,__consumer_offsets-10,__consumer_offsets-32,__consumer_offsets-40 and stopped moving logs for partitions  because they are in the failed log directory C:\kafka-2.6.0\data\broker1. (kafka.server.ReplicaManager)
+[2022-07-13 12:49:19,665] INFO [ReplicaFetcherManager on broker 0] Removed fetcher for partitions Set(streaming1-0) (kafka.server.ReplicaFetcherManager)
+[2022-07-13 12:49:19,666] WARN Stopping serving logs in dir C:\kafka-2.6.0\data\broker1 (kafka.log.LogManager)
+[2022-07-13 12:49:19,670] INFO [ReplicaAlterLogDirsManager on broker 0] Removed fetcher for partitions Set(streaming1-0) (kafka.server.ReplicaAlterLogDirsManager)
+[2022-07-13 12:49:19,679] ERROR Shutdown broker because all log dirs in C:\kafka-2.6.0\data\broker1 have failed (kafka.log.LogManager)
+
+Solution: topic deleted issue with zookeeper logs
+
+Urls: https://stackoverflow.com/questions/48114040/exception-during-topic-deletion-when-kafka-is-hosted-in-docker-in-windows
+
+##################################################
+Error4:
+Printing epoch id: 0
+Printing before cassandra table save: 0
+22/07/13 14:35:29 ERROR MicroBatchExecution: Query [id = bfbe00b3-6cba-4b30-9ed4-93fc052f5bd1, runId = 2157bd96-808f-4aa3-993d-1db698e3b80c] terminated with error
+py4j.Py4JException: An exception was raised by the Python Proxy. Return Message: Traceback (most recent call last):
+  File "C:\spark3\python\lib\py4j-0.10.9.5-src.zip\py4j\clientserver.py", line 617, in _call_proxy
+    return_value = getattr(self.pool[obj_id], method)(*params)
+  File "C:\spark3\python\lib\pyspark.zip\pyspark\sql\utils.py", line 272, in call
+    raise e
+  File "C:\spark3\python\lib\pyspark.zip\pyspark\sql\utils.py", line 269, in call
+    self.func(DataFrame(jdf, self.session), batch_id)
+  File "C:/Users/04647U744/Documents/Github0/bigdata/pyspark/data_processing.py", line 45, in save_to_cassandra
+    keyspace=CASSANDRA_KEYSPACE).save()
+  File "C:\spark3\python\lib\pyspark.zip\pyspark\sql\readwriter.py", line 966, in save
+    self._jwrite.save()
+  File "C:\spark3\python\lib\py4j-0.10.9.5-src.zip\py4j\java_gateway.py", line 1322, in __call__
+    answer, self.gateway_client, self.target_id, self.name)
+  File "C:\spark3\python\lib\pyspark.zip\pyspark\sql\utils.py", line 190, in deco
+    return f(*a, **kw)
+  File "C:\spark3\python\lib\py4j-0.10.9.5-src.zip\py4j\protocol.py", line 328, in get_return_value
+    format(target_id, ".", name), value)
+py4j.protocol.Py4JJavaError: An error occurred while calling o69.save.
+: java.lang.ClassNotFoundException:
+Failed to find data source: org.apache.sql.cassandra. Please find packages at
+https://spark.apache.org/third-party-projects.html
+
+
+##################################################

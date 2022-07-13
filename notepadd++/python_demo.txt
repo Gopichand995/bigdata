@@ -1,0 +1,10 @@
+################
+C:\Users\04647U744\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Python 3.7
+
+try except
+database master file ElementNotFoundException, for loop with try, except skip an element
+
+file handling
+with instead of open which includes exception handling need not explicitly close the file everytime
+
+

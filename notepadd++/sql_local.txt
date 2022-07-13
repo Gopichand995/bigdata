@@ -1,0 +1,175 @@
+with comp_src_loc_det as (
+	select csl.locationid, csl.locationname, sld.id fieldid, sld.fieldname 
+	from r2rdev_dkl488ee8_pgid_1d8e45ed.company_source_location csl
+		inner join r2rdev_dkl488ee8_pgid_1d8e45ed.source_location_details sld 
+		on (csl.locationid = sld.locationid)
+	where csl.isactive = true
+)
+select jsl.jid, jsl.filename, jsl.locationid, csld.locationname, jsl.fieldid, csld.fieldname, jsl.fieldvalue
+from r2rdev_dkl488ee8_pgid_1d8e45ed.journal_source_location jsl
+	inner join comp_src_loc_det csld
+	on (jsl.locationid = csld.locationid and jsl.fieldid = csld.fieldid)
+order by jid desc, jsl.filename, jsl.locationid, jsl.fieldid
+
+select ji.id, ji."name" from r2rdev_dkl488ee8_pgid_1d8e45ed.journal_info ji 
+where ji.frequency != 'Adhoc'
+order by ji.id desc 
+
+select * from r2rdev_dkl488ee8_pgid_1d8e45ed.journal_info ji 
+where frequency != "Adhoc"
+
+select * from r2rdev_dkl488ee8_pgid_1d8e45ed.source_location_details sld 
+
+select * from r2rdev_dkl488ee8_pgid_1d8e45ed.journal_source_location jsl
+
+select ji.id, ji.status, ji.ispaused from r2rdev_dkl488ee8_pgid_1d8e45ed.journal_info ji 
+where ji.frequency != 'Adhoc'
+and ispaused = false 
+and status = 'Pending Approval'
+order by ji.id desc
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+select * from r2rdev_dkl488ee8_pgid_1d8e45ed.companies c 
+
+SELECT ID, STATUS, FILETYPE, ITEMNAME, REQUESTDATA FROM r2rdev_dkl488ee8_pgid_1d8e45ed.journal_download_trace jdt
+
+WHERE CREATEDBY = 'WIDc01d6ccd-93fd-4267-919b-56142d6cb20c' 
+
+[company_id, curr_date, company_id, curr_date, role_name, user_id, role_name, user_id, role_name, user_id, role_name, user_id, company_id]
+select * from r2rdev_dkl488ee8_pgid_1d8e45ed.users u, r2rdev_dkl488ee8_pgid_1d8e45ed.usercompanies u2, r2rdev_dkl488ee8_pgid_1d8e45ed.roles r, r2rdev_dkl488ee8_pgid_1d8e45ed.userroles u3 
+
+
+jrh - 16
+select b.*
+from (
+    select a.*,
+           row_number() over (partition by a.id order by a.rundate desc, a.runnumber desc) rn
+    from r2rdev_dkl488ee8_pgid_1d8e45ed.journal_run_history a
+    where lower(a.runtype) != 'adhoc' ) b
+where b.rn = 1
+
+work_day_sla - 21
+select A3.*, A4.startdate, A4.enddate from (select A1.*, A2.name from (select calendarid,
+year, month, workday, wddate from r2rdev_dkl488ee8_pgid_1d8e45ed.journal_calendar_workday) A1
+left join r2rdev_dkl488ee8_pgid_1d8e45ed.journal_calendar_master A2 on
+A1.calendarid = A2.id) A3 inner join (select year, month, startdate, enddate from
+r2rdev_dkl488ee8_pgid_1d8e45ed.journal_financial_month where companyid = 'b9790c86-ffa5-405d-8913-c51197b6476f3' and 
+startdate <= '2021-07-16' order by startdate desc limit 1) A4 on
+(A3.year = A4.year and A3.month = A4.month)
+
+work_day_posting - 21
+select A3.* from (select A1.*, A2.name from (select calendarid,
+year, month, workday, wddate from r2rdev_dkl488ee8_pgid_1d8e45ed.journal_calendar_workday) A1
+left join r2rdev_dkl488ee8_pgid_1d8e45ed.journal_calendar_master A2 on
+A1.calendarid = A2.id) A3 inner join (select year, month from
+r2rdev_dkl488ee8_pgid_1d8e45ed.journal_financial_month where companyid = 'b9790c86-ffa5-405d-8913-c51197b6476f3' and 
+startdate <= '2021-07-16' order by startdate desc limit 1) A4 on
+(A3.year = A4.year and A3.month = A4.month)
+
+select (case when ji.postingdatetime = 0 then '12:00AM'
+	when cast(ji.postingdatetime as int) < 12 then ji.sourcesla + ':00AM'
+	when cast(ji.postingdatetime as int) = 12 then '12:00PM'
+	else cast((cast(ji.postingdatetime as int)-12) as varchar) + ':00PM'
+	end ) postingdatetime_new 
+from r2rdev_dkl488ee8_pgid_1d8e45ed.journal_info ji
+limit 20
+
+
+SELECT ID, STATUS, FILETYPE, ITEMNAME, REQUESTDATA from r2rdev_dkl488ee8_pgid_1d8e45ed.journal_download_trace 
+where createdby = 'WID3e618b69-fe0d-4d50-81a5-6d2ee251adf5' and isdelete = false 
+
+select * from r2rdev_dkl488ee8_pgid_1d8e45ed.journal_info ji 
+limit 10
+
+select * from r2rdev_dkl488ee8_pgid_1d8e45ed.journal_run_history jrh 
+limit 5
+
+select * from r2rdev_dkl488ee8_pgid_1d8e45ed.indicator_master im 
+limit 10
+
+select * from r2rdev_dkl488ee8_pgid_1d8e45ed.journal_calendar_master jcm 
+limit 10
+
+select * from r2rdev_dkl488ee8_pgid_1d8e45ed.journal_template_master jtm 
+limit 10
+
+select * from r2rdev_dkl488ee8_pgid_1d8e45ed.journal_group_element jge 
+where jid = 4120 or jid = 4119
+limit 10
+
+select * from r2rdev_dkl488ee8_pgid_1d8e45ed.work_day_posting
+
+select * from r2rdev_dkl488ee8_pgid_1d8e45ed.journal_download_trace jdt 
+where itemname = 'journal_sla_metrics'
+order by id desc 
+
+select * from r2rdev_dkl488ee8_pgid_1d8e45ed.journal_download_trace jdt 
+where itemname = 'journal_in_progress_metrics'
+order by id desc 
+
+select * from r2rdev_dkl488ee8_pgid_1d8e45ed.journal_download_trace jdt 
+where itemname = 'journal_pending_approval_metrics'
+order by id desc 
+
+
+select * from r2rdev_dkl488ee8_pgid_1d8e45ed.journal_download_trace jdt 
+order by id desc 
+where id = 737 or id = 742 or id = 743
+
+delete from r2rdev_dkl488ee8_pgid_1d8e45ed.journal_download_trace jdt 
+where id = 704
+
+
+with 
+grp as (
+		select grp_mas.id groupid, grp_mas.name groupname,
+	       grp_mem.id elementid, grp_mem.name elementname
+		from  r2rdev_dkl488ee8_pgid_1d8e45ed.journal_group_master grp_mas,
+		      r2rdev_dkl488ee8_pgid_1d8e45ed.journal_group_members grp_mem
+		where grp_mas.id = grp_mem.groupid
+		and grp_mas.isactive = true
+),
+jrgrpele as (
+            	select jr_grp.jid, 
+                        string_agg(
+                        (jr_grp.groupid || '=`!' || grp.groupname || '=`!' || grp.elementname)
+                        ,'^|~' order by jr_grp.groupid, jr_grp.elementid ) grpelestr
+                    from r2rdev_dkl488ee8_pgid_1d8e45ed.journal_group_element jr_grp
+                         inner join grp on (jr_grp.groupid = grp.groupid and jr_grp.elementid = grp.elementid)
+                    group by jr_grp.jid
+		    )
+select ji.id, jrgrpele.grpelestr
+from r2rdev_dkl488ee8_pgid_1d8e45ed.journal_info ji
+left outer join jrgrpele on (jrgrpele.jid = ji.id)
+order by ji.id 
+
+select distinct grp_mas.name groupname
+    from  r2rdev_dkl488ee8_pgid_1d8e45ed.journal_group_master grp_mas,
+          r2rdev_dkl488ee8_pgid_1d8e45ed.journal_group_members grp_mem
+    where grp_mas.id = grp_mem.groupid
+    and grp_mas.isactive = true
+
+
+    
+    
+
+                    

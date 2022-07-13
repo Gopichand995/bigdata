@@ -1,0 +1,303 @@
+#################################################################################
+Defect1: 4756, 4713, 4696
+12:08
+Below was the issue details
+Hi team,
+I am facing an issue with the below two journals 4756 & 4713 (I have 31 analogical to these journals) in Prod. system, so I would really appreciate if this is some kind of bug which could be fixed and no reconfigurations to be needed...
+When I do the manual runs with test data the Data Clean-up modification is not happening as configured for input "EXCH_RATE". 
+During configuration I have applied two data clean-ups:
+1) to remove the 3rd and 4th columns as not needed &
+2) header to be the 4th row.
+This is the approach I discussed with my colleague to avoid the first field in the input file which contains dynamic value with the name of the respective Month (e.g. May/December etc.) and it is working for her (example journal ID 4699).
+Sending you attached screenshots on how the modified via data clean-up input look like and how it appears in the manual run (with no data clean up applied).
+I am attaching as example also the input files - the EXCH_RATE.xlsx is the one used in configuration, the EXCH_RATE_12.2020.xlsx is the one used in the manual run. 
+Please check and advise why is this issue happening (why the configured data clean up is not applied during manual runs) and how could this be fixed? Thanks a lot in advance for the support!
+12:09
+So we suggested the user to add another step to the Jr : Create a dummy step before step 9 as below using exchange rate :
+Use text string function create one dummy column like EXCH_RATE[DUMMY1] = EXCH_RATE[LOCALCURRENCYCODE]
+12:09
+even after doing this they still face the below error :
+12:09
+Unfortunately it is not working :( 
+I've done this in journal 4713 (as for this CTY the output result will have records and it's better example than 4756 which is absolutely analogical in terms of EXCH_RATE merging), but the merge with EXCH_RATE was happening here initially on Step 13, so as you advised I've added interim step for Dummy column creation, but it's failing on it upon manual run - please refer to below 3 screenshots.
+Could you please investigate a bit further so that we can understand and fix the root cause for not applying the configured Data clean-up modifications for input EXCH_RATE? Thanks a lot for the support!
+
+
+Jul 1 14:42:18 python-be-ingress-deployment-7d6b556c44-7vh8z python-be DEBUG 106 - 2021-07-01 09:12:18,886 - journal - DEBUG - [get_data] : DB connected successfully
+Jul 1 14:42:18 python-be-ingress-deployment-7d6b556c44-7vh8z python-be DEBUG 106 - 2021-07-01 09:12:18,906 - journal - DEBUG - [get_data] : Fetch run version successfully for jid 4135
+Jul 1 14:42:18 python-be-ingress-deployment-7d6b556c44-7vh8z python-be ERROR 106 - 2021-07-01 09:12:18,929 - journal - ERROR - [get_data] : Untracked Exception | 'Traceback (most recent call last): |   
+File "/usr/local/lib/python3.7/site-packages/cryptography/fernet.py", line 113, in _verify_signature |     h.verify(data[-32:]) |   File "/usr/local/lib/python3.7/site-packages/cryptography/hazmat/primitives/hmac.py", 
+line 70, in verify |     ctx.verify(signature) |   File "/usr/local/lib/python3.7/site-packages/cryptography/hazmat/backends/openssl/hmac.py", line 78, in verify |     
+raise InvalidSignature("Signature did not match digest.") | cryptography.exceptions.InvalidSignature: Signature did not match digest. |  | During handling of the above exception, another exception occurred: |  | 
+Traceback (most recent call last): |   File "/JCC/journal.py", line 713, in get_data |     decrypt_out = encrypt_decrypt.decrypt_inmemory(file_name_with_path, KEY) |   
+File "/usr/local/lib/python3.7/site-packages/jc3commonutils/encrypt_decrypt.py", line 96, in decrypt_inmemory |     decrypted_data = f_key.decrypt(encrypted_data) |   
+File "/usr/local/lib/python3.7/site-packages/cryptography/fernet.py", line 76, in decrypt |     return self._decrypt_data(data, timestamp, ttl, int(time.time())) |   
+File "/usr/local/lib/python3.7/site-packages/cryptography/fernet.py", line 125, in _decrypt_data |     self._verify_signature(data) |   
+File "/usr/local/lib/python3.7/site-packages/cryptography/fernet.py", line 115, in _verify_signature |     raise InvalidToken | cryptography.fernet.InvalidToken'
+Jul 1 14:42:18 python-be-ingress-deployment-7d6b556c44-7vh8z python-be DEBUG 106 - 2021-07-01 09:12:18,930 - journal - DEBUG - [get_data] : DB Closed successfully
+
+
+4144 issue replication for 4173 jid: 
+
+Jul 5 17:10:13 jccc-rerun-deployment-df6ddc48d-jppz5 jccc-rerun ERROR 292 - 2021-07-05 11:40:13,174 - get_exec - ERROR - [get_exec_method] : Exception in execute 
+| 'Traceback (most recent call last): |   File "/usr/local/lib/python3.7/site-packages/pandas/core/indexes/base.py", line 3080, in get_loc |     return self._engine.get_loc(casted_key) |   
+File "pandas/_libs/index.pyx", line 70, in pandas._libs.index.IndexEngine.get_loc |   File "pandas/_libs/index.pyx", line 101, in pandas._libs.index.IndexEngine.get_loc |   
+File "pandas/_libs/hashtable_class_helper.pxi", line 4554, in pandas._libs.hashtable.PyObjectHashTable.get_item |   File "pandas/_libs/hashtable_class_helper.pxi", line 4562, 
+in pandas._libs.hashtable.PyObjectHashTable.get_item | KeyError: \'LOCALCURRENCYCODE\' |  | The above exception was the direct cause of the following exception: | 
+ | Traceback (most recent call last): |   File "/usr/local/lib/python3.7/site-packages/jc3commonutils/execute.py", line 273, in get_exec_method |     exec(file.read()) |   
+ File "<string>", line 1029, in <module> |   File "/usr/local/lib/python3.7/site-packages/pandas/core/frame.py", line 3024, in __getitem__ |     indexer = self.columns.get_loc(key) | 
+ File "/usr/local/lib/python3.7/site-packages/pandas/core/indexes/base.py", line 3082, in get_loc |     raise KeyError(key) from err | KeyError: \'LOCALCURRENCYCODE\''
+
+################################################################################
+
+Mails
+@jyothis3 hi jyothi...we have looked into the issue...we notice that in one of the input files for the re-run i.e. "Copy of EXCH_RATE_12.2020", the actual header row(5th row in the file) 
+has duplicate column names(say "I/E AVERAGE" which is used in the process steps)...so u have to make sure that there are no duplicates in the input re-run file...the header cleanup code expects the same 
+
+Solution: The upload step follows the extraction of the used_columns from the processed steps and thereby the columns effects the cleaning of the junk header and so for Diana & Anita journals (4713 & 4696) respectively 
+		  there is mismatch in the used_columns(country in case of anita whereas country, ieaverage, bsmonth for diana) and due to that reason the rerun file is performing junk header clean in one case but unable to enter
+		  the junk header clean in the other case...thus resolving the issue
+		  
+#################################################################################
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  df_risk["Category"] = "risk"
+C:\Users\GopichandBarri\Documents\Github\JCCC-FILE-DOWNLOAD\src\main\jccc_file_download\journal_home_basic_classic.py:257: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+################################################################################
+
+5200 - 2021-07-25 09:53:17,976 - journal_home_basic_classic - ERROR - [get_journal_sla_metrics_download] : KeyError - json key mismatch occured | 'Traceback (most recent call last): |   
+File "C:\\Users\\GopichandBarri\\Documents\\Github\\JCCC-FILE-DOWNLOAD\\src\\main\\jccc_file_download\\journal_home_basic_classic.py", line 323, in get_journal_sla_metrics_download |     
+df_complete = df_complete[reorder_columns_list] |   File "C:\\Users\\GopichandBarri\\Anaconda3\\lib\\site-packages\\pandas\\core\\frame.py", line 3030, in __getitem__ |     
+indexer = self.loc._get_listlike_indexer(key, axis=1, raise_missing=True)[1] |   File "C:\\Users\\GopichandBarri\\Anaconda3\\lib\\site-packages\\pandas\\core\\indexing.py", line 1266, in _get_listlike_indexer |
+     self._validate_read_indexer(keyarr, indexer, axis, raise_missing=raise_missing) |   File "C:\\Users\\GopichandBarri\\Anaconda3\\lib\\site-packages\\pandas\\core\\indexing.py", line 1316, in _validate_read_indexer | 
+	 raise KeyError(f"{not_found} not in index") | KeyError: "[\'Last Run Status\', \'Financial Month End Date\', \'Created By\', \'Financial Month Start Date\', \'Preparer\', \'Source SLA Time\', 
+	 \'Administrator\', \'Calendar\', \'Postingt SLA Span (Hr)\', \'Source SLA\', \'Journal Id\', \'Posting SLA Date\', \'Pending With\', \'Journal Name\', \'Status\', \'Reviewer\', \'Posting SLA Time\', 
+	 \'Template\', \'Source SLA Date\', \'Posting SLA\', \'Last Run Date\', \'Approver\', \'Frequency\', \'SLA Period (%)\'] not in index"'
+5200 - 2021-07-25 09:53:17,987 - jccc_file_download - INFO - [download_sla_day_count] : Journal SLA Metrics data download started for : SLA Category: achieved : comp_code : r2rdev_dkl488ee8_pgid_1d8e45ed
+5200 - 2021-07-25 09:53:17,988 - jccc_file_download - INFO - [download_sla_day_count] : Journal SLA Metrics download started for : comp_code : r2rdev_dkl488ee8_pgid_1d8e45ed
+127.0.0.1 - - [25/Jul/2021 09:53:17] "←[37mPOST /downloadJournalSlaMetrics HTTP/1.1←[0m" 200 -
+
+in the admin --> activitylog --> detele instead of delete in action column
+
+################################################################################
+
+Jul 28 18:02:24 jccc-file-download-deployment-f6d9d784b-pfpp7 jccc-file-download-celery-worker WARNING 59 - 2021-07-28 12:32:24,325 - journal_home_basic_classic - ERROR - [get_journal_home_classic_download] : Untracked exception | 'Traceback (most recent call last): |   File "/usr/local/lib/python3.7/site-packages/pandas/io/sql.py", line 1697, in execute |     cur.execute(*args, **kwargs) | psycopg2.errors.UndefinedColumn: column result1.jrhid does not exist | LINE 159: ...    where ((result1.configstatus = \'Approved\' and result1.jr... |                                                                ^ |  |  | The above exception was the direct cause of the following exception: |  | Traceback (most recent call last): |   File "/JCC/journal_home_basic_classic.py", line 1696, in get_journal_home_classic_download |     user_id, company_id]) |   File "/usr/local/lib/python3.7/site-packages/pandas/io/sql.py", line 490, in read_sql |     chunksize=chunksize, |   File "/usr/local/lib/python3.7/site-packages/pandas/io/sql.py", line 1743, in read_query |     cursor = self.execute(*args) |   File "/usr/local/lib/python3.7/site-packages/pandas/io/sql.py", line 1709, in execute |     raise ex from exc | pandas.io.sql.DatabaseError: Execution failed on sql \' |             with |             jrh as ( |                 select b.* |                 from ( |                     select a.*, |                         row_number() over (partition by a.id order by a.rundate desc, a.runnumber desc) rn |                     from R2RDEV_IKDV5FCD8_PGID_46F7C7B5.journal_run_history a |                     where lower(a.runtype) != \'adhoc\' ) b |                 where b.rn = 1 |             ), |             ind_detail as ( |                 select indid, indname |                 from R2RDEV_IKDV5FCD8_PGID_46F7C7B5.indicator_master |             ), |             work_day_sla as ( |                 select A3.*, A4.startdate, A4.enddate from (select A1.*, A2.name from (select calendarid, |                 year, month, workday, wddate from R2RDEV_IKDV5FCD8_PGID_46F7C7B5.journal_calendar_workday) A1 |                 left join R2RDEV_IKDV5FCD8_PGID_46F7C7B5.journal_calendar_master A2 on |                 A1.calendarid = A2.id) A3 inner join (select year, month, startdate, enddate from |                 R2RDEV_IKDV5FCD8_PGID_46F7C7B5.journal_financial_month where companyid = %s and |                 startdate <= %s order by startdate desc limit 1) A4 on |                 (A3.year = A4.year and A3.month = A4.month) |             ), |             work_day_posting as ( |                 select A3.* from (select A1.*, A2.name from (select calendarid, |                 year, month, workday, wddate from R2RDEV_IKDV5FCD8_PGID_46F7C7B5.journal_calendar_workday) A1 |                 left join R2RDEV_IKDV5FCD8_PGID_46F7C7B5.journal_calendar_master A2 on |                 A1.calendarid = A2.id) A3 inner join (select year, month from |                 R2RDEV_IKDV5FCD8_PGID_46F7C7B5.journal_financial_month where companyid = %s and |                 startdate <= %s order by startdate desc limit 1) A4 on |                 (A3.year = A4.year and A3.month = A4.month) |             ), |             sup_doc as ( |                 select jid, count(filename) supportdoccount |                 from R2RDEV_IKDV5FCD8_PGID_46F7C7B5.journal_supporting_docs |                 group by jid |             ), |             grp as ( |                 select grp_mas.id groupid, grp_mas.name groupname, |                     grp_mem.id elementid, grp_mem.name elementname |                 from  R2RDEV_IKDV5FCD8_PGID_46F7C7B5.journal_group_master grp_mas, |                     R2RDEV_IKDV5FCD8_PGID_46F7C7B5.journal_group_members grp_mem |                 where grp_mas.id = grp_mem.groupid |                 and grp_mas.isactive = true |             ), |             jrgrpele as ( |                 select jr_grp.jid, |                     string_agg((grp.groupname || \'=`!\' || grp.elementname),\'^|~\' order by jr_grp.groupid, jr_grp.elementid ) grpelestr |                 from R2RDEV_IKDV5FCD8_PGID_46F7C7B5.journal_group_element jr_grp |                     inner join grp on (jr_grp.groupid = grp.groupid and jr_grp.elementid = grp.elementid) |                 group by jr_grp.jid |             ) |             select result.* |             from ( |                 select result1.*, row_number() over (order by id desc) rn |                 from ( |                     select oldresult.*, |                         (case when (rundate between finstartdate and finenddate) |                                    and runstatus in (\'Completed\', \'Not to Post\') |                                    then 0 |                               else ((postingtoslahrspan - pendingtopostinghr)/postingtoslahrspan)*100 |                         end ) slapercent |                     from ( |                         select oldresult1.*, |                             (case when (pendingtopostinghrold < postingtoslahrspan) |                                        and (rundate between sourceslacaldate and postingcaldate) |                                        and configstatus = \'Approved\' |                                        and runstatus in (\'Completed\', \'Not to Post\') |                                        then 999999 |                                   when (pendingtopostinghrold < postingtoslahrspan) |                                        and (rundate between sourceslacaldate and postingcaldate) |                                        and configstatus = \'Approved\' |                                        and runstatus not in (\'Completed\', \'Not to Post\') |                                        then pendingtopostinghrold |                                   when (pendingtopostinghrold < postingtoslahrspan) |                                        and (rundate not between sourceslacaldate and postingcaldate) |                                        and configstatus = \'Approved\' |                                        then pendingtopostinghrold |                                   when (pendingtopostinghrold < 0) |                                        and (rundate between sourceslacaldate and postingcaldate) |                                        and configstatus = \'Approved\' |                                        and runstatus in (\'Completed\', \'Not to Post\') |                                            then 999999 |                                   when (pendingtopostinghrold < 0) |                                        and (rundate between sourceslacaldate and postingcaldate) |                                        and configstatus = \'Approved\' |                                        and runstatus not in (\'Completed\', \'Not to Post\') |                                        then pendingtopostinghrold |                                   when (pendingtopostinghrold > postingtoslahrspan) |                                        and configstatus = \'Approved\' |                                        then 999999 |                                   else 999999 |                             end ) pendingtopostinghr |                         from ( |                             select  ji.id id, ji.name jidname, ji.frequency, |                                     jtm.name templatename, ji.sourcesla, |                                     ji.createdby, ji.ownedby preparer, ji.approver, ji.reviewer, ji.superuser, |                                     ji.postingdate, sourceslatime, ji.postingdatetime postingdatetime, |                                     ji.postingfiletype, ji.sourcecontact, ji.postingcontact, |                                     jrh.rundate rundate, to_char(jrh.rundate,\'DD-MM-YYYY\') rundatestr, |                                     ji.status configstatus, jrh.status runstatus, |                                     (case when jrh.status is null then ji.status |                                           when jrh.status is not null and ji.status != \'Approved\' then ji.status |                                           else jrh.status |                                     end ) journalstatus, |                                     jrgrpele.grpelestr, |                                     ind_detail.indname as indicatorname, |                                     work_day_posting.name as calendarname, |                                     work_day_posting.wddate as postingcaldate, |                                     to_char(work_day_posting.wddate,\'DD-MM-YYYY\') postingcaldatestr, |                                     work_day_sla.wddate as sourceslacaldate, |                                     work_day_sla.startdate as finstartdate, |                                     to_char(work_day_sla.startdate,\'DD-MM-YYYY\') finstartdatestr, |                                     work_day_sla.enddate as finenddate, |                                     to_char(work_day_sla.enddate,\'DD-MM-YYYY\') finenddatestr, |                                     to_char(work_day_sla.wddate,\'DD-MM-YYYY\') sourceslacaldatestr, |                                     (case when round((extract(epoch from(to_timestamp(concat(work_day_posting.wddate, \' \', to_number(ji.postingdatetime, \'9999\'), \':00:00\'), \'YYYY-MM-DD HH24:MI:SS\') - to_timestamp(concat(work_day_sla.wddate, \' \', to_number(ji.sourceslatime, \'9999\'), \':00:00\'), \'YYYY-MM-DD HH24:MI:SS\')))/3600)::numeric, 2) = 0 then 1 |                                           else round((extract(epoch from(to_timestamp(concat(work_day_posting.wddate, \' \', to_number(ji.postingdatetime, \'9999\'), \':00:00\'), \'YYYY-MM-DD HH24:MI:SS\') - to_timestamp(concat(work_day_sla.wddate, \' \', to_number(ji.sourceslatime, \'9999\'), \':00:00\'), \'YYYY-MM-DD HH24:MI:SS\')))/3600)::numeric, 2) |                                     end ) postingtoslahrspan, |                                     round((extract(epoch from(to_timestamp(concat(work_day_posting.wddate, \' \', to_number(ji.postingdatetime, \'9999\'), \':00:00\'), \'YYYY-MM-DD HH24:MI:SS\') - now()))/3600)::numeric, 2) pendingtopostinghrold, |                                     (case when ji.status = \'In Progress\' then round((extract(epoch from(now() - (coalesce(ji.statuschangedatetime, ji.createddatetime))))/86400)::numeric, 2) |                                           when ji.status = \'Returned\' then round((extract(epoch from(now() - (coalesce(ji.statuschangedatetime, ji.createddatetime))))/86400)::numeric, 2) |                                           else null |                                     end ) inprogdaycount, |                                     (case when ji.status = \'Pending Approval\' then round((extract(epoch from(now() - (coalesce(ji.statuschangedatetime, ji.updateddatetime))))/86400)::numeric, 2) |                                           else null |                                     end ) pendingapprovaldaycount, |                                     (case when ji.status = \'In Progress\' then ji.ownedby |                                           when ji.status = \'Pending Approval\' then ji.approver |                                           when ji.status = \'Approved\' and jrh.status = \'Submit For Review\' then ji.ownedby |                                           when ji.status = \'Approved\' and jrh.status = \'Run Error\' then ji.ownedby |                                           when ji.status = \'Approved\' and jrh.status = \'Rejected\' then ji.ownedby |                                           when ji.status = \'Approved\' and jrh.status = \'Pending Sign Off\' then ji.reviewer |                                           when ji.status = \'Approved\' and jrh.status = \'Review 2\' then jrh.reviewer2nd |                                           else null |                                     end ) actionowner |                             from R2RDEV_IKDV5FCD8_PGID_46F7C7B5.journal_info ji |                                 inner join R2RDEV_IKDV5FCD8_PGID_46F7C7B5.journal_template_master jtm on (jtm.templateid = ji.templateid) |                                 left outer join jrh on (jrh.id = ji.id) |                                 left outer join sup_doc on (sup_doc.jid = ji.id) |                                 left outer join jrgrpele on (jrgrpele.jid = ji.id) |                                 left outer join work_day_posting on (work_day_posting.workday = ji.postingdate and work_day_posting.calendarid = ji.calendarid) |                                 left outer join work_day_sla on (work_day_sla.workday = ji.sourcesla and work_day_sla.calendarid = ji.calendarid) |                                 left outer join ind_detail on (ind_detail.indid = ji.indid) |                             where lower(ji.frequency) != \'adhoc\' |                             and ji.ownedby = (case  when %s = \'Preparer\' then %s else ji.ownedby end) |                             and ji.approver = (case when %s = \'Approver\' then %s else ji.approver end ) |                             and ( |                                 ji.reviewer = (case when %s = \'Reviewer\' then %s else ji.reviewer end) |                                 or |                                 coalesce(jrh.reviewer2nd, \'\') = (case when %s = \'Reviewer\' then %s |                                                                       else coalesce(jrh.reviewer2nd, \'\') end ) |                                 ) |                             and ji.companyid = %s |                         ) oldresult1 |                     ) oldresult |                 ) result1 |                 where ((result1.configstatus = \'Approved\' and result1.jrhid is null) or (result1.configstatus = \'Approved\' and result1.runstatus in (\'Completed\', \'Not to Post\', \'Pending Sign Off\', \'Ready to Post\', \'Rejected\', \'Review 2\', \'Run Error\', \'Submit For Review\'))) |             ) result |             \': column result1.jrhid does not exist | LINE 159: ...    where ((result1.configstatus = \'Approved\' and result1.jr... |                                                                ^ | '
+
+
+################################################################################
+
+########
+# 4002 #
+########
+
+DYNAMIC HEADERS
+
+Document Date
+Posting Date
+Document Type
+Doc Header Text
+Reference
+Company Code
+Currency
+Exchange Rate
+Ledger Group
+Reversal Reason
+Reversal Date
+
+################################################################################
+
+########
+# 4013 #
+########
+Jul 26 12:22:52 jccc-rerun-deployment-6dfdf55478-mdcht jccc-rerun ERROR 173 - 2021-07-26 06:52:52,638 - config_run_methods - ERROR - [get_no_steps_completed] : got error msg for journal 4013 | 'NoneType: None'
+Jul 26 12:24:12 python-be-ingress-deployment-d5788fd9b-zcfpb python-be ERROR 1240 - 2021-07-26 06:54:12,260 - journal - ERROR - [save_journal] : failed in audit log update for jid:4013 due to... 'str' object has no attribute 'keys'
+Jul 26 12:24:16 jccc-rerun-deployment-6dfdf55478-x7q5l jccc-rerun ERROR 124 - 2021-07-26 06:54:16,348 - config_run_methods - ERROR - [get_no_steps_completed] : got error msg for journal 4013 | 'NoneType: None'
+Jul 26 12:24:34 jccc-rerun-deployment-6dfdf55478-x7q5l jccc-rerun ERROR 237 - 2021-07-26 06:54:34,893 - config_run_methods - ERROR - [get_no_steps_completed] : got error msg for journal 4013 | 'NoneType: None'
+Jul 26 16:55:34 jccc-rerun-deployment-6dfdf55478-mdcht jccc-rerun ERROR 108 - 2021-07-26 11:25:34,970 - get_exec - ERROR - [get_exec_common] :  for comp_code r2rstage_ijc552957_pgid_4f71b6eb and jid 4013 | 'NoneType: None'
+Aug 2 15:49:18 python-be-ingress-deployment-d5788fd9b-qvvfm python-be ERROR 1572 - 2021-08-02 10:19:18,839 - input_log_anomaly - ERROR - [input_log_anomaly] : FileNotFoundError for comp_code r2rstage_ijc552957_pgid_4f71b6eb and jid 4013 | 'Traceback (most recent call last): |   File "/JCC/input_log_anomaly.py", line 153, in input_log_anomaly |     decrypt_out = encrypt_decrypt.decrypt_inmemory(path_anomaly_log2, KEY) |   File "/usr/local/lib/python3.7/site-packages/jc3commonutils/encrypt_decrypt.py", line 91, in decrypt_inmemory |     with open(filename, "rb") as file: | FileNotFoundError: [Errno 2] No such file or directory: \'/data/jccvolume1/r2rstage_ijc552957_pgid_4f71b6eb/dataStore//4013/26-07-2021_2/Analytics/Anomaly/Logdata/Input/INPUT_Anomalylog.csv\''
+
+################################################################################
+
+########
+# 4019 #
+########
+Jul 30 18:09:59 python-be-ingress-deployment-d5788fd9b-qvvfm python-be ERROR 1106 - 2021-07-30 12:39:59,258 - input_log_anomaly - ERROR - [input_log_anomaly] : FileNotFoundError for comp_code r2rstage_ijc552957_pgid_4f71b6eb and jid 4019 | 'Traceback (most recent call last): |   File "/JCC/input_log_anomaly.py", line 153, in input_log_anomaly |     decrypt_out = encrypt_decrypt.decrypt_inmemory(path_anomaly_log2, KEY) |   File "/usr/local/lib/python3.7/site-packages/jc3commonutils/encrypt_decrypt.py", line 91, in decrypt_inmemory |     with open(filename, "rb") as file: | FileNotFoundError: [Errno 2] No such file or directory: \'/data/jccvolume1/r2rstage_ijc552957_pgid_4f71b6eb/dataStore//4019/30-07-2021_2/Analytics/Anomaly/Logdata/Input/SEEDS_Anomalylog.csv\''
+
+################################################################################
+
+########
+# 4021 #   ########### timestamp:1627645734081 ########### namespace:r2rjournal-int  4021 ###########
+########
+
+Jul 30 12:43:09 jccc-file-download-deployment-5f8b498f9d-wt6qz jccc-file-download-celery-worker ERROR consumer: Cannot connect to redis://redis-master-analytics.r2rfrontend.svc.cluster.local:6379/26: invalid DB index.
+
+Jul 30 22:23:51 jccc-rerun-deployment-6dfdf55478-x7q5l jccc-rerun ERROR 437 - 2021-07-30 16:53:51,098 - get_exec - ERROR - [post_process_method] : Exception in Post process | 'Traceback (most recent call last): |   File "/usr/local/lib/python3.7/site-packages/jc3commonutils/post_process.py", line 1122, in post_process_method |     m_var = {df_header.columns[i]: df_output.columns[i]} |   File "/usr/local/lib/python3.7/site-packages/pandas/core/indexes/base.py", line 4297, in __getitem__ |     return getitem(key) | IndexError: index 11 is out of bounds for axis 0 with size 11'
+
+Jul 27 17:47:05 jccc-rerun-deployment-6dfdf55478-mdcht jccc-rerun-celery-worker WARNING 74 - 2021-07-27 12:17:05,884 - config_run_methods - ERROR - [run_parser_dot_py] : Untracked Exception for jid 4021 | 'Traceback (most recent call last): |   File "/JCC/config_run_methods.py", line 377, in run_parser_dot_py |     exec(rnf.read()) |   File "<string>", line 886, in <module> |   File "<string>", line 159, in generic_parsing |   File "/usr/local/lib/python3.7/site-packages/openpyxl/formula/tokenizer.py", line 53, in __init__ |     self._parse() |   File "/usr/local/lib/python3.7/site-packages/openpyxl/formula/tokenizer.py", line 87, in _parse |     self.offset += dispatcher[curr_char]() |   File "/usr/local/lib/python3.7/site-packages/openpyxl/formula/tokenizer.py", line 108, in _parse_string |     self.assert_empty_token(can_follow=\':\') |   File "/usr/local/lib/python3.7/site-packages/openpyxl/formula/tokenizer.py", line 307, in assert_empty_token |     raise TokenizerError(f"Unexpected character at position {self.offset} in \'{self.formula}\'") | openpyxl.formula.tokenizer.TokenizerError: Unexpected character at position 18 in \'=INPUT[VendorName]\'0-90\'\''
+Jul 27 17:47:06 jccc-rerun-deployment-6dfdf55478-mdcht jccc-rerun ERROR 173 - 2021-07-27 12:17:06,915 - config_run_methods - ERROR - [get_no_steps_completed] : got error msg for journal 4021 | 'NoneType: None'
+
+Jul 27 17:39:16 jccc-rerun-deployment-6dfdf55478-mdcht jccc-rerun-celery-worker WARNING 74 - 2021-07-27 12:09:16,577 - config_run_methods - ERROR - [exec_jid_dot_py] : ValueError for jid 4021 | 'Traceback (most recent call last): |   File "/JCC/config_run_methods.py", line 502, in exec_jid_dot_py |     exec(f_file.read()) |   File "<string>", line 397, in <module> |   File "/usr/local/lib/python3.7/site-packages/pandas/core/ops/common.py", line 65, in new_method |     return method(self, other) |   File "/usr/local/lib/python3.7/site-packages/pandas/core/arraylike.py", line 29, in __eq__ |     return self._cmp_method(other, operator.eq) |   File "/usr/local/lib/python3.7/site-packages/pandas/core/series.py", line 4973, in _cmp_method |     raise ValueError("Can only compare identically-labeled Series objects") | ValueError: Can only compare identically-labeled Series objects'
+
+Jul 27 17:47:06 jccc-rerun-deployment-6dfdf55478-mdcht jccc-rerun ERROR 173 - 2021-07-27 12:17:06,915 - config_run_methods - ERROR - [get_no_steps_completed] : got error msg for journal 4021 | 'NoneType: None'
+
+################################################################################
+
+########
+# 4024 #   ########### timestamp: ########### namespace:r2rjournal-int  4024 ###########
+########
+
+Type Error: During data type convertion issue occurred in step 31. Please check data. 
+
+Aug 10 08:44:00 python-be-ingress-deployment-855b5d8c68-j5p2p python-be ERROR 10 - 2021-08-10 03:14:00,133 - journal - ERROR - [get_step_data] : FileNotFoundError | 'Traceback (most recent call last): |   File "/JCC/journal.py", line 1131, in get_step_data |     byte_size = os.path.getsize(file_name_with_path) |   File "/usr/local/lib/python3.7/genericpath.py", line 50, in getsize |     return os.stat(filename).st_size | FileNotFoundError: [Errno 2] No such file or directory: \'/data/jccvolume1/r2rdev_ikdv5fcd8_pgid_46f7c7b5/dataStore//4206/Test/Processed/Step_Output/step_30.csv\''
+
+we have been thinking that in 2-3steps he has done the comparision between string
+
+################################################################################
+[2021-08-14 21:49:58,914: WARNING/SpawnPoolWorker-4] Count of jid
+[2021-08-14 21:49:58,936: WARNING/SpawnPoolWorker-4] 135
+[2021-08-14 21:49:59,801: WARNING/SpawnPoolWorker-4] 18400 - 2021-08-14 21:49:59,801 - create_source_metadata_for_all_journals - INFO - [download_source_metadata_for_all_journals] : Source Metadata For All Journals downloaded successfully for : comp_code : r2rdev_ikdv5fcd8_pgid_46f7c7b5
+[2021-08-14 21:49:59,801: WARNING/SpawnPoolWorker-4] 18400 - 2021-08-14 21:49:59,801 - jccc_file_download - ERROR - [gen_source_metadata_for_all_journals_download] : DB connectivity issue occured | 'Traceback (most recent call last): |   File "C:\\Users\\GopichandBarri\\Documents\\Github\\JCCC-FILE-DOWNLOAD\\src\\main\\jccc_file_download\\jccc_file_download.py", line 3336, in gen_source_metadata_for_all_journals_download |     (status, message, input_req["reqInfo"]["userId"], upd_date_time, download_id)) | psycopg2.OperationalError: server closed the connection unexpectedly | \tThis probably means the server terminated abnormally | \tbefore or while processing the request. | '
+[2021-08-14 21:49:59,801: ERROR/SpawnPoolWorker-4] Task jccc_file_download.gen_source_metadata_for_all_journals_download[7b69511d-1087-4e07-836c-ad11030526c0] raised unexpected: InterfaceError('connection already closed')
+Traceback (most recent call last):
+  File "C:\Users\GopichandBarri\Documents\Github\JCCC-FILE-DOWNLOAD\src\main\jccc_file_download\jccc_file_download.py", line 3336, in gen_source_metadata_for_all_journals_download
+    (status, message, input_req["reqInfo"]["userId"], upd_date_time, download_id))
+psycopg2.OperationalError: server closed the connection unexpectedly
+        This probably means the server terminated abnormally
+        before or while processing the request.
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\users\gopichandbarri\anaconda3\lib\site-packages\celery\app\trace.py", line 405, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "C:\Users\GopichandBarri\Documents\Github\JCCC-FILE-DOWNLOAD\src\main\jccc_file_download\jccc_file_download.py", line 3362, in gen_source_metadata_for_all_journals_download
+    con.rollback()
+psycopg2.InterfaceError: connection already closed
+
+SOLUTION: Database connection was established long ago and it was timed out already and hence it was failing in line 3336
+################################################################################
+
+########
+# 5009 #   ########### timestamp: 4:11pm IST, 23rd Aug 2021 ########### namespace:r2rjournal-int  5009/4938 ###########
+########
+
+While doing the manual run of journal 5009 receiving "unexpected error" and when trying to open the  output file in advisor tab for respective Journal then showing "file not found error" message​. I have tried Manual Run(Offline) and this journal ran successfully in that case but the output is not yet reflected in the advisor tab.  Also in advisor in 'view journal data' I can see that the steps are not being executed after step 8.
+
+4938
+09/02 18:27:14
+
+################################################################################
+
+####  Re-Editable option not working ###
+
+5676  ---> Rejected
+5557  ---> Rejected
+5682  ---> Rejected
+5683  ---> Rejected
+5686  ---> Rejected
+5687  ---> Rejected
+4865  ---> Completed
+
+these journals Source SLA is WD-10, so ask user to add "WD-10" workday for february month, its missing for this month in calendar master (edited) 
+14th march comes under feb financial month
+
+################################################################################
+
+journal_combiner
+journal_input_log_anomaly_detector
+journal_extractor
+journal_validator
+journal_datacleaner
+journal_processor
+journal_extractor_sftp
+ACTIVATE - journal_extractor_sftp_0
+journal_process_log_anomaly_detector
+journal_datawh
+journal_receiver_sftp
+journal_post_processor
+JOURNAL_JOB_CREATION
+
+
+#############################
+
+23rd March, 2022
+
+
+1) audit workbook
+Mar 17 17:07:24 jccc-file-download-deployment-76499959f-nd2vl jccc-file-download-celery-worker WARNING 60 - 2022-03-17 11:37:24,386 - generate_file - ERROR - [gen_awb_cust] : Untracked Exception for comp_code r2rdev_ikdv5fcd8_pgid_46f7c7b5 | 'Traceback (most recent call last): |   File "/JCC/generate_file.py", line 1462, in gen_awb_cust |     os.remove(f_list[i]) | IsADirectoryError: [Errno 21] Is a directory: \'/data/jccvolume1/r2rdev_ikdv5fcd8_pgid_46f7c7b5/dataStore/4929/temp/temp11-02-2022-08-23-01\''
+
+2) process steps not running
+
+
+##################################
+Mar 24 17:22:52 python-be-ingress-deployment-55ffbcc49-5jrsf python-be ERROR 347 - 2022-03-24 11:52:52,508 - download - ERROR - [download_step_output] : FileNotFoundError for comp_code r2rdev_ikdv5fcd8_pgid_46f7c7b5 | 'Traceback (most recent call last): |   File "/JCC/download.py", line 2814, in download_step_output |     encoding="utf-8") |   File "/usr/local/lib/python3.7/site-packages/pandas/io/parsers.py", line 610, in read_csv |     return _read(filepath_or_buffer, kwds) |   File "/usr/local/lib/python3.7/site-packages/pandas/io/parsers.py", line 468, in _read |     return parser.read(nrows) |   File "/usr/local/lib/python3.7/site-packages/pandas/io/parsers.py", line 1057, in read |     index, columns, col_dict = self._engine.read(nrows) |   File "/usr/local/lib/python3.7/site-packages/pandas/io/parsers.py", line 2061, in read |     data = self._reader.read(nrows) |   File "pandas/_libs/parsers.pyx", line 756, in pandas._libs.parsers.TextReader.read |   File "pandas/_libs/parsers.pyx", line 771, in pandas._libs.parsers.TextReader._read_low_memory |   File "pandas/_libs/parsers.pyx", line 827, in pandas._libs.parsers.TextReader._read_rows |   File "pandas/_libs/parsers.pyx", line 814, in pandas._libs.parsers.TextReader._tokenize_rows |   File "pandas/_libs/parsers.pyx", line 1943, in pandas._libs.parsers.raise_parser_error | FileNotFoundError: [Errno 2] No such file or directory'
+
+																				#################################################
+MAR 24 17:23:01 PYTHON-BE-INGRESS-DEPLOYMENT-55FFBCC49-5JRSF PYTHON-BE ERROR 347 - 2022-03-24 11:53:01,510 - DOWNLOAD - ERROR - [DOWNLOAD_STEP_OUTPUT] : UNTRACKED EXCEPTION FOR COMP_CODE R2RDEV_IKDV5FCD8_PGID_46F7C7B5 | 'TRACEBACK (MOST RECENT CALL LAST): |   FILE "/JCC/DOWNLOAD.PY", LINE 2804, IN DOWNLOAD_STEP_OUTPUT |     SHUTIL.COPYTREE(SRC, DEST) |   FILE "/USR/LOCAL/LIB/PYTHON3.7/SHUTIL.PY", LINE 318, IN COPYTREE |     NAMES = OS.LISTDIR(SRC) | OSERROR: [ERRNO 107] TRANSPORT ENDPOINT IS NOT CONNECTED: \'/DATA/JCCVOLUME1/R2RDEV_IKDV5FCD8_PGID_46F7C7B5/DATASTORE//4929/17-03-2022_1/PROCESSED/STEP_OUTPUT\''
+																				#################################################
+
+Mar 24 17:23:04 python-be-ingress-deployment-55ffbcc49-5jrsf python-be ERROR 204 - 2022-03-24 11:53:04,673 - advisory - ERROR - [get_anomaly_stat] : Untracked Exception for comp_code r2rdev_ikdv5fcd8_pgid_46f7c7b5 and jid 4929 | 'Traceback (most recent call last): |   File "/JCC/advisory.py", line 5024, in get_anomaly_stat |     with open(master_json_path, \'r\') as json_file: | OSError: [Errno 107] Transport endpoint is not connected: \'/data/jccvolume1/r2rdev_ikdv5fcd8_pgid_46f7c7b5/dataStore//4929/Master/master.json\''
+
+
+Mar 24 17:25:26 python-be-ingress-deployment-55ffbcc49-5jrsf python-be ERROR 107 - 2022-03-24 11:55:26,121 - download - ERROR - [create_source_metadata_template] : Exception Occurred -  | 'Traceback (most recent call last): |   File "/usr/local/lib/python3.7/site-packages/jc3commonutils/create_source_metadata_template.py", line 60, in create_source_metadata_template |     os.makedirs(file_path) |   File "/usr/local/lib/python3.7/os.py", line 211, in makedirs |     makedirs(head, exist_ok=exist_ok) |   File "/usr/local/lib/python3.7/os.py", line 211, in makedirs |     makedirs(head, exist_ok=exist_ok) |   File "/usr/local/lib/python3.7/os.py", line 211, in makedirs |     makedirs(head, exist_ok=exist_ok) |   [Previous line repeated 2 more times] |   File "/usr/local/lib/python3.7/os.py", line 221, in makedirs |     mkdir(name, mode) | OSError: [Errno 107] Transport endpoint is not connected: \'/data/jccvolume1\''
+
+Mar 24 18:00:38 python-be-ingress-deployment-55ffbcc49-5jrsf python-be ERROR 203 - 2022-03-24 12:30:38,000 - advisory - ERROR - [get_advisory_config_list] : Untracked Exception for comp_code r2rdev_ikdv5fcd8_pgid_46f7c7b5 and jid 4929 | 'Traceback (most recent call last): |   File "/JCC/advisory.py", line 1756, in get_advisory_config_list |     with open(master_json_path, \'r\') as json_file: | OSError: [Errno 107] Transport endpoint is not connected: \'/data/jccvolume1/r2rdev_ikdv5fcd8_pgid_46f7c7b5/dataStore//4929/Master/master.json\''
+
+Mar 24 18:00:55 python-be-ingress-deployment-55ffbcc49-5jrsf python-be ERROR 204 - 2022-03-24 12:30:55,812 - journal - ERROR - [get_journal_log] : Untracked Exception | 'Traceback (most recent call last): |   File "/JCC/journal.py", line 2907, in get_journal_log |     with open(main_log_path, "r") as f_file: | OSError: [Errno 107] Transport endpoint is not connected: \'/data/jccvolume1/r2rdev_ikdv5fcd8_pgid_46f7c7b5/dataStore//4956/mainlog.json\''
+
+Mar 24 18:00:55 python-be-ingress-deployment-55ffbcc49-5jrsf python-be ERROR 59 - 2022-03-24 12:30:55,812 - journal - ERROR - [get_journal_by_id] : Untracked Exception | 'Traceback (most recent call last): |   File "/JCC/journal.py", line 474, in get_journal_by_id |     with open(file_path, \'r\') as json_file: | OSError: [Errno 107] Transport endpoint is not connected: \'/data/jccvolume1/r2rdev_ikdv5fcd8_pgid_46f7c7b5/dataStore//4956/Master/master.json\''
+Mar 24 18:00:55 python-be-ingress-deployment-55ffbcc49-5jrsf python-be ERROR 59 - 2022-03-24 12:30:55,813 - journal - ERROR - Exception occurred | 'Traceback (most recent call last): |   File "/JCC/journal.py", line 474, in get_journal_by_id |     with open(file_path, \'r\') as json_file: | OSError: [Errno 107] Transport endpoint is not connected: \'/data/jccvolume1/r2rdev_ikdv5fcd8_pgid_46f7c7b5/dataStore//4956/Master/master.json\''
+
+Mar 24 20:22:11 jccc-rerun-deployment-84bdc6c6d4-b7fbl jccc-rerun-celery-worker WARNING 107 - 2022-03-24 14:52:11,731 - config_run_methods - ERROR - [decrypt_required_files] : Exception Occured in 1st block | 'Traceback (most recent call last): |   File "/usr/local/lib/python3.7/site-packages/cryptography/fernet.py", line 113, in _verify_signature |     h.verify(data[-32:]) |   File "/usr/local/lib/python3.7/site-packages/cryptography/hazmat/primitives/hmac.py", line 70, in verify |     ctx.verify(signature) |   File "/usr/local/lib/python3.7/site-packages/cryptography/hazmat/backends/openssl/hmac.py", line 78, in verify |     raise InvalidSignature("Signature did not match digest.") | cryptography.exceptions.InvalidSignature: Signature did not match digest. |  | During handling of the above exception, another exception occurred: |  | Traceback (most recent call last): |   File "/JCC/config_run_methods.py", line 333, in decrypt_required_files |     encrypt_decrypt.decrypt(files[i], KEY) |   File "/usr/local/lib/python3.7/site-packages/jc3commonutils/encrypt_decrypt.py", line 77, in decrypt |     decrypted_data = f_key.decrypt(encrypted_data) |   File "/usr/local/lib/python3.7/site-packages/cryptography/fernet.py", line 76, in decrypt |     return self._decrypt_data(data, timestamp, ttl, int(time.time())) |   File "/usr/local/lib/python3.7/site-packages/cryptography/fernet.py", line 125, in _decrypt_data |     self._verify_signature(data) |   File "/usr/local/lib/python3.7/site-packages/cryptography/fernet.py", line 115, in _verify_signature |     raise InvalidToken | cryptography.fernet.InvalidToken'
+Mar 24 20:22:11 jccc-rerun-deployment-84bdc6c6d4-b7fbl jccc-rerun-celery-worker WARNING 107 - 2022-03-24 14:52:11,856 - config_run_methods - INFO - [write_error_msg] : Initializing
+
+##################################
+29th March, 2022
+Issue: This is regarding some journals, which failed at data combiner with error ‘no_file_available’ but the files were available on the respective shared box folder and data extracted successfully. Journal ids are 5403,	5402,5375, 5529 and 5530. Please see the below screenshot for reference.
+
+Logs:
+Mar 25 15:33:23 jccc-combiner-deployment-d74bddbdb-kqqrg jccc-combiner WARNING 1 - 2022-03-25 10:03:23,427 - journal_combiner - WARNING - Subprocess Call for COMPANY_CODE : r2r_ijef0e03f_pgid_dfd63fdc and JID : 5530 and JOBID : 86585 and PID : 1 and RUN_DATE : 25-03-2022 hasn't found all required input files.
+Mar 28 19:33:23 jccc-scheduler-deployment-6c6dc7df44-fp42f jccc-scheduler INFO 11 - 2022-03-28 14:03:23,662 - journal_scheduler - INFO - COMPANY_CODE : r2r_ijef0e03f_pgid_dfd63fdc and JID : 5530. The last run is incomplete with error at process : journal_extractor_sftp or COMBINER. The run window got over. Hence, couldn't be run again in that particular QUARTERLY cycle.
+Mar 28 13:33:23 jccc-combiner-deployment-d74bddbdb-kqqrg jccc-combiner INFO 1 - 2022-03-28 08:03:23,507 - journal_combiner - INFO - [x] Received message : {"msg_event_type": "JCCCSchedulerEvent", "account": "ijef0e03f871bf49", "company_code": "r2r_ijef0e03f_pgid_dfd63fdc", "company_name": "IBM", "jobid": "87683", "jid": "5530", "state": "journal_combiner", "create_dt": "28-03-2022", "run_version": "5", "path": "/data/jccvolume1/r2r_ijef0e03f_pgid_dfd63fdc/dataStore/"}; Rx Channel : <kafka.consumer.group.KafkaConsumer object at 0x7f144efb1a50>; Method : KafkaConsumer; Properties : ConsumerRecord(topic='journal_combiner', partition=0, offset=936412, timestamp=1648454603502, timestamp_type=0, key=None, headers=[], checksum=None, serialized_key_size=-1, serialized_value_size=317, serialized_header_size=-1)
+
+Solution: 
+As per your screenshot, the journal run started at 12:28 pm GMT, which means 5:58 pm IST. Ideally the journal run job waits for 2 hours max for the input files to arrive in SFTP server. It doesn't matter when the files were kept at your server, it has to be in SFTP server by 7:58 pm IST. Now, please check the screenshot where SFTP server shows the availability of the files after 8pm IST. So, now you may conclude the rest.
+So we can manual run the journal as the scheduled run failed due to failure of fetching the inputs from the SFTP server
+
+##################################
+31st March, 2022
+Issue: Regarding Journal 6338, It is  throwing Run Error at step 15 when trying to do manual run . During 'in progress' state step were running fine. Could you please check for the issue. 
+Logs: 
+Mar 31 12:30:52 jccc-rerun-deployment-7f699f958d-966ld jccc-rerun ERROR 264 - 2022-03-31 07:00:52,108 - get_exec - ERROR - [get_exec_common] :  for comp_code r2r_ijef0e03f_pgid_dfd63fdc and jid 6338 | 'NoneType: None'
+Mar 31 13:12:27 python-be-ingress-deployment-59b95fcf66-m56vj python-be ERROR 3603 - 2022-03-31 07:42:27,066 - journal - ERROR - [get_data] : FileNotFoundError | 'Traceback (most recent call last): |   File "/JCC/journal.py", line 718, in get_data |     byte_size = os.path.getsize(file_name_with_path) |   File "/usr/local/lib/python3.7/genericpath.py", line 50, in getsize |     return os.stat(filename).st_size | FileNotFoundError: [Errno 2] No such file or directory: \'/data/jccvolume1/r2r_ijef0e03f_pgid_dfd63fdc/dataStore//6338/24-03-2022_1/Output/ResultDFI_Template_AP_CTY-605-616-643-672-709-736-749-766-778-796-818-834-855-856-858_SRC-480.csv\''
+Solution: Copy step and modify so that input is provided properly and note that it is better to create the process data for the steps involving Pivot Tabel/ Lookup Table functions
+
+
+#####################################
+1st April, 2022
+
+jids: 5574, 5575, 5576 run (not working),  (5567, 5568 run working)
+Mar 31 15:33:34 jccc-scheduler-deployment-85bfcbf9b-8hdst jccc-scheduler INFO 11 - 2022-03-31 10:03:34,717 - journal_scheduler - INFO - CYS : False SLA : 2022-03-31 09:00:00 POST_DT : 2022-04-02 11:00:00 CURR_DT : 2022-03-31 10:03:34.680758 Last status : False for Journal ID : 5576 and COMPANY_CODE : r2r_ijef0e03f_pgid_dfd63fdc with FREQUENCY : QUARTERLY
+Mar 31 15:33:34 jccc-scheduler-deployment-85bfcbf9b-8hdst jccc-scheduler ERROR 11 - 2022-03-31 10:03:34,717 - journal_scheduler - ERROR - COMPANY_CODE : r2r_ijef0e03f_pgid_dfd63fdc and JID : 5576. ERROR in run criteria check.
+Solution: SLA Post Dates for copied journals not updtaed in the db fixed by avik
+
+
+Apr 1 14:49:08 jccc-rerun-deployment-7cb49cddd8-qf4lp jccc-rerun-celery-worker WARNING 106 - 2022-04-01 09:19:08,582 - config_run_methods - ERROR - [exec_jid_dot_py] : KeyError for jid 4334 | 'Traceback (most recent call last): |   File "/usr/local/lib/python3.7/site-packages/pandas/core/indexes/base.py", line 3080, in get_loc |     return self._engine.get_loc(casted_key) |   File "pandas/_libs/index.pyx", line 70, in pandas._libs.index.IndexEngine.get_loc |   File "pandas/_libs/index.pyx", line 101, in pandas._libs.index.IndexEngine.get_loc |   File "pandas/_libs/hashtable_class_helper.pxi", line 4554, in pandas._libs.hashtable.PyObjectHashTable.get_item |   File "pandas/_libs/hashtable_class_helper.pxi", line 4562, in pandas._libs.hashtable.PyObjectHashTable.get_item | KeyError: \'Major\' |  | The above exception was the direct cause of the following exception: |  | Traceback (most recent call last): |   File "/JCC/config_run_methods.py", line 494, in exec_jid_dot_py |     exec(f_file.read()) |   File "<string>", line 1223, in <module> |   File "<string>", line 320, in empty_input_pivot |   File "/usr/local/lib/python3.7/site-packages/pandas/core/frame.py", line 3024, in __getitem__ |     indexer = self.columns.get_loc(key) |   File "/usr/local/lib/python3.7/site-packages/pandas/core/indexes/base.py", line 3082, in get_loc |     raise KeyError(key) from err | KeyError: \'Major\''
+Apr 1 14:49:13 jccc-rerun-deployment-7cb49cddd8-qf4lp jccc-rerun ERROR 106 - 2022-04-01 09:19:13,547 - config_run_methods - ERROR - [get_no_steps_completed] : got error msg for journal 4334 | 'NoneType: None'
+
+
+########################################
+26th APril, 2022
+
+issue:
+FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory
+
+solution:
+https://stackoverflow.com/questions/53230823/fatal-error-ineffective-mark-compacts-near-heap-limit-allocation-failed-javas
+
+
+########################################

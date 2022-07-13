@@ -1,0 +1,69 @@
+#########################################################
+Big Data (Data Engineer) Reskilling (GIC)
+https://yourlearning.ibm.com/activity/PLAN-44EACA278B56
+
+spark mcq test/assessment preperation
+https://data-flair.training/blogs/apache-spark-online-quiz-part-1/
+
+#########################################################
+Pre-Requisitea
+
+Excelerate Essential Courses
+https://w3.ibm.com/w3publisher/excelerate-data-services/essential-courses
+
+Excelerate Intermediate Courses
+https://w3.ibm.com/w3publisher/excelerate-data-services/intermediate-courses
+
+The Ultimate Hands-On Hadoop: Tame your Big Data!
+https://ibm-learning.udemy.com/course/the-ultimate-hands-on-hadoop-tame-your-big-data/
+
+Hive to ADVANCE Hive (Real time usage) :Hadoop querying tool
+https://ibm-learning.udemy.com/course/hadoop-querying-tool-hive-to-advance-hivereal-time-usage/
+
+Data Engineering Essentials using SQL, Python, and PySpark
+https://ibm-learning.udemy.com/course/data-engineering-essentials-sql-python-and-spark/
+
+
+#########################################################
+Training
+https://ibm-learning.udemy.com/course/spark-and-python-for-big-data-with-pyspark/learn/lecture/5856256#overview
+https://ibm-learning.udemy.com/course/taming-big-data-with-apache-spark-hands-on/learn/lecture/3688138#overview
+https://ibm-learning.udemy.com/course/apache-spark-with-scala-hands-on-with-big-data/
+https://ibm-learning.udemy.com/course/taming-big-data-with-spark-streaming-hands-on/
+https://ibm-learning.udemy.com/course/apache-spark-core-30-in-depth/
+
+
+#########################################################
+Certification
+
+https://ibm-learning.udemy.com/course/cca-175-spark-and-hadoop-developer-certification-scala/learn/lecture/8254458#overview
+https://ibm-learning.udemy.com/course/cca-175-spark-and-hadoop-developer-python-pyspark/learn/lecture/32611344#overview
+
+#########################################################
+
+
+
+
+#########################################################
+#########################################################
+To Dos Final:
+
+quiz practice for spark
+https://r4r.in/mcqs/?subid=213&subcat=pySpark  ---> completed
+https://engineeringinterviewquestions.com/category/pyspark-questions/  --->
+https://data-flair.training/blogs/apache-spark-online-quiz-part-1/   ---> completed
+
+video-lectures
+https://ibm-learning.udemy.com/course/the-ultimate-hands-on-hadoop-tame-your-big-data/learn/lecture/6115596#overview  --> completed
+https://ibm-learning.udemy.com/course/spark-and-python-for-big-data-with-pyspark/learn/lecture/5856256#overview  ---> completed
+https://ibm-learning.udemy.com/course/taming-big-data-with-apache-spark-hands-on/learn/lecture/3688138#overview ---> completed
+
+digital credential
+https://courses.cognitiveclass.ai/courses/course-v1:BDU+BD0212EN+v1/course/   --> Spark Fundamentals II  --> completed
+
+certification
+https://ibm-learning.udemy.com/course/cca-175-spark-and-hadoop-developer-python-pyspark/learn/lecture/32611344#overview
+
+#########################################################
+#########################################################
+

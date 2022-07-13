@@ -1,0 +1,80 @@
+Start: html
+Start: head
+Start: title
+End   : title
+End   : head
+Start: body
+-> data-modal-target > None
+-> class > 1
+Start: h1
+End   : h1
+Empty : br
+End   : body
+End   : html
+
+
+Start : html
+Start : head
+Start : title
+End   : title
+End   : head
+Start : body
+-> data-modal-target > None
+-> class > 1
+Start : h1
+End   : h1
+Empty : br
+End   : body
+End   : html
+
+
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+from html.parser import HTMLParser
+
+# create a subclass and override the handler methods
+class MyHTMLParser(HTMLParser):
+    def handle_starttag(self, tag, attrs):
+        print("Start :", tag)
+        if attrs is not None:
+            for attr in attrs:
+                print(f"-> {attr[0]} > {attr[1]}")
+    def handle_endtag(self, tag):
+        print("End   :", tag)
+    def handle_startendtag(self, tag, attrs):
+        print("Empty :", tag)
+        if attrs is not None:
+            for attr in attrs:
+                print(f"-> {attr[0]} > {attr[1]}")
+        
+
+n = input()
+data = []
+for _ in range(int(n)):
+    data.append(input())
+ 
+parser = MyHTMLParser()
+data = parser.feed([data[i] for i in range(len(data))])
+
+
+
+from html.parser import HTMLParser
+
+class MyHTMLParser(HTMLParser):
+    def handle_comment(self, data):
+        if data.count('<!') < 1:
+            print(">>> Single-line Comment\n", data)
+        elif data.count('<!') >= 1:
+            print(">>> Multi-line Comment\n", data)
+    def handle_data(self, data):
+        print(">>> Data", data)
+  
+  
+    
+html = ""       
+for i in range(int(input())):
+    html += input().rstrip()
+    html += '\n'
+    
+parser = MyHTMLParser()
+parser.feed(html)
+parser.close()

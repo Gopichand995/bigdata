@@ -1,0 +1,302 @@
+winutils.exe chmod -R 777 C:\Users\04647U744\Downloads\hadoop-2.7.7\
+
+cd %HADOOP_HOME%
+cd etc\hadoop
+hadoop-env.cmd
+
+
+
+from cmd execute   ---> 
+hdfs namenode -format
+
+from sbin execute  --->
+start-dfs, stop-dfs
+start-yarn, stop-yarn
+
+
+http://localhost:8042 Hadoop,
+http://localhost:9870 HDFS,   or 50070
+http://localhost:8088 YARN
+
+http://localhost:4040 PySpark
+
+
+##################################
+core-site.xml
+
+<configuration>
+	<property>
+	<name>fs.defaultFS</name>
+	<value>hdfs://localhost:9000</value>
+	</property>
+</configuration>
+
+
+
+##################################
+hdfs-site.xml
+
+<configuration>
+	<property>
+	<name>dfs.replication</name>
+	<value>1</value>
+	</property>
+	<property>
+		<name>fs.defaultFS</name>
+		<value>hdfs://localhost:9000</value>
+	</property>
+	<property>
+	<name>dfs.namenode.name.dir</name>
+	<value>file:///hadoop/data/namenode</value>
+	</property>
+	<property>
+	<name>dfs.datanode.data.dir</name>
+	<value>file:///hadoop/data/datanode</value>
+	</property>
+	<property>
+	<name>dfs.permissions</name>
+	<value>false</value>
+	</property>
+</configuration>
+
+
+##################################
+yarn-site.xml
+
+<configuration>
+
+<!-- Site specific YARN configuration properties -->
+	<property>
+	<name>yarn.nodemanager.aux-services</name>
+	<value>mapreduce_shuffle</value>
+	</property>
+	<property>
+	<name>yarn.nodemanager.aux-services.mapreduce.shuffle.class</name>
+	<value>org.apache.hadoop.mapred.ShuffleHandler</value>
+	</property>
+
+</configuration>
+
+
+##################################
+mapred-site.xml
+
+<configuration>
+	<property>
+	<name>mapreduce.framework.name</name>
+	<value>yarn</value>
+	</property>
+</configuration>
+
+
+##################################
+hadoop-env.cmd
+
+@rem The java implementation to use.  Required.
+set JAVA_HOME=C:\Java\jdk8
+
+Java 8 is stable version for hadoop & spark
+
+
+haddop installation windows 10 os
+https://stackoverflow.com/questions/34871814/failed-to-start-namenode-in-hadoop
+https://www.youtube.com/watch?v=g7Qpnmi0Q-s&ab_channel=edureka%21
+https://www.youtube.com/watch?v=_F4CaEu0yTg&ab_channel=LinuxUnixAix
+https://www.youtube.com/watch?v=GfixwKmS8Ro&ab_channel=ProgrammingEpitome         ----> follow this
+https://apisero.com/guide-to-setup-hadoop-on-windows-and-integrating-hdfs-connector-with-mulesoft/#:~:text=Hadoop%20is%20a%20framework%20written,%3A%20a%20namenode%20%26%20a%20datanode.
+
+spark installation environmental variable issue
+https://medium.com/analytics-vidhya/installing-and-using-pyspark-on-windows-machine-59c2d64af76e#:~:text=Create%20a%20folder%20for%20spark%20installation%20at%20the,file%20corresponding%20to%20the%20Spark%20and%20Hadoop%20version
+	
+winutils.exe, hadoop.dll files download
+https://github.com/cdarlint/winutils/tree/master/hadoop-2.7.7/bin
+
+
+apache hive installation
+https://towardsdatascience.com/installing-apache-hive-3-1-2-on-windows-10-70669ce79c79
+
+
+
+
+
+
+########################################
+hive commands
+
+hive installation
+https://www.youtube.com/watch?v=BV1FgKYjc8E&ab_channel=SanjayJain
+
+hive  --> 2.1.0
+derby --> 10.12.1.1
+
+hive-site.xml link
+https://drive.google.com/file/d/1qqAo7RQfr5Q6O-GTom6Rji3TdufP81zd/view
+
+from derby/bin execute ---> 
+startNetworkServer -h 0.0.0.0
+
+from hive/bin execute ---> 
+hive
+
+how to disable the info logs in the hive terminal?
+<p> set hive.server2.logging.operation.level=NONE; </p>
+
+
+
+. . > Display all 560 possibilities? (y or n)
+
+
+hive> CREATE EXTERNAL TABLE IF NOT EXISTS Names_text(
+		EmployeeID INT,FirstName STRING, Title STRING,
+		State STRING, Laptop STRING)
+		COMMENT 'Employee Names'
+		ROW FORMAT DELIMITED
+		FIELDS TERMINATED BY ','
+		STORED AS TEXTFILE
+		LOCATION '/user/data/';
+		
+		
+create database company;
+show databases;
+use company;
+create table employees (id int, name string, country string, department string, salary int)
+row format delimited fields terminated by '-';
+show tables;
+load data inpath '/hdoop/employees.txt' overwrite into table employees;
+select * from employees;
+
+
+#######################################################
+hbase setup
+https://www.youtube.com/watch?v=Uuyq343vluc&t=218s&ab_channel=edureka%21
+https://www.learntospark.com/2020/08/setup-hbase-in-windows.html
+
+hbase commands
+from hbase/bin execute
+> start-hbase.cmd
+> hbase shell
+
+#######################################################
+cassandra 
+https://phoenixnap.com/kb/install-cassandra-on-windows
+
+KEYSPACE is Database equivalent
+CREATE KEYSPACE movielens WITH replication = {'class': 'SinmpleStrategy', 'replication_factor' = 1} AND durable_writes = true;
+USE movielens;
+CREATE TABLE users (user_id int, age int, gender text, occupation text, zip text, PRIMARRY_KEY (user_id));
+CREATE TABLE house (no int, timestamp time, houseage int, distancetomrt int, numberconveniencestores int, latitude int, longitude int, priceofunitarea int, PRIMARY_KEY(no));
+
+.add("no", StringType()) \
+        .add("timestamp", StringType()) \
+        .add("houseage", StringType()) \
+        .add("distancetomrt", StringType()) \
+        .add("numberconveniencestores", StringType()) \
+        .add("latitude", StringType()) \
+        .add("longitude", StringType()) \
+        .add("priceofunitarea", StringType())
+		
+		
+		
+DESCRIBE TABLE users;
+SELECT * FROM users;
+
+from cassandra-3.11.13/bin execute
+cassandra
+cqlsh
+
+########################################################
+pig
+https://towardsdatascience.com/installing-apache-pig-0-17-0-on-windows-10-7b19ce61900d
+
+
+########################################################
+MongoDB
+https://www.simplilearn.com/tutorials/mongodb-tutorial/install-mongodb-on-windows
+
+mongo
+databases, collections, documents
+
+########################################################
+kafka
+https://www.youtube.com/watch?v=-fWznY5nBSg&t=807s&ab_channel=TutorialsPedia
+
+C:\zookeeper-3.6.2\bin
+zkServer
+
+C:\kafka-2.6.0
+bin\windows\kafka-server-start.bat .\config\server.properties
+
+kafka-topics.bat --create --topic <topic_name> --bootstrap-server localhost:9092
+kafka-topics.bat --list --bootstrap-server localhost:9092
+kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic <topic_name>
+kafka-console-producer.bat --bootstrap-server localhost:9092 --topic <topic_name>
+kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic <topic_name> --from-beginning
+
+errors
+https://serverfault.com/questions/997762/unable-to-start-kafka-with-zookeeper-kafka-common-inconsistentclusteridexceptio
+
+########################################################
+remove logs in spark info as error
+https://stackoverflow.com/questions/27781187/how-to-stop-info-messages-displaying-on-spark-console
+
+databricks
+https://community.cloud.databricks.com/?o=5066097194091736#notebook/1250418455760892/command/1250418455760893
+
+data csv download test
+https://data.world/datacrunch/transshipment-identification/workspace/file?filename=Potential_Transshipments_20170222.csv
+
+
+
+
+
+
+
+
+
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+########################################################
+
+

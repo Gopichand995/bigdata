@@ -1,0 +1,101 @@
+######################################################################
+ACCOMPLISHMENTS FOR THE YEAR 2021
+* Developed a wrapper for the extraction of source output and audit data from the sftp server to the virtual machines.
+* Developed multiple APIs that provide offline download functionality for the metrics in journal's classic home and also the source metadata.
+* Developed a script that automates various levels of journal life like admin, configuration, approval, rerun, dryrun & advisor using selenium.
+* Developed a feature that modifies the journal template columns based on the constraint that the credit, debit & amount fields don't intersect.
+* Supported closely working with the users team by providing the production journal configuration level solutions as early as possible.
+
+######################################################################
+
+###########################################################################################                 11TH JAN, 2022                 ###########################################################################################
+* dev, qa, jira access ---> monika
+* git setup for purbasha
+* kubernetes pods ---> avik ---> understanding on kubernetes, docker, deployment along with logDNA
+* once the journal ui login, admin config, new journal creation, approval, rerun(online & offline) is done now look into the  advisor section
+
+##############
+7th February, 2022
+* Advisor Automation & Report generation 
+
+##############
+14th February, 2022
+* template renaming column and add 3 new columns functionality
+* inputs ---> template_file & jid-template_name mapping
+* check the renaming columns are not used in these 3 functionalities
+
+1. template master cr/dr mandatory fields and amount fields ---> DB(journal_template_columns, journal_template_master)
+2. validation rules ---> masterRule/globalRules.json(cloud)
+3. output format    ---> outputFormat/<temp_id_temp_name.json>(cloud)
+
+globalRules.json observation
+* Combined     ---> not detecting columns from ruleCommand to ruleProperty
+* Mandatory    ---> No problem all columns getting detected 
+* Threshold    ---> only where operator column not getting getting detected
+* Invalid Data ---> only where operator column not getting getting detected
+
+doubt: process steps used columns?
+
+##############
+15th February, 2022
+* template path conn dynamically            ------> done
+* decryption of template                    ------> done
+* multiple template in mapping              ------> done
+* set difference for added & del columns    ------> done
+* remove NAME column df creation            ------> done
+
+##############
+21st February, 2022
+* Dry Run Automation & Report generation 
+
+##############
+28th February, 2022
+* Header Template & Output Format Integration & Report Generation
+
+##############
+7th March, 2022
+* Journal Config, Approval, Rerun Report Generation
+
+##############
+14th March, 2022
+* Issues with the user team on journal config: 
+1) Journals Source SLA is WD-10, so ask user to add "WD-10" workday for february month, its missing for this month in calendar master --> Diana
+2) Lookup issue in prod env --> Divyasai
+
+##############
+21st March, 2022
+* The DryRun status in previous dry run page not static it seems and so unable to extract the status text and do the refresh accordingly
+Solution: just tried different attribute and it worked...i used get_attribute("value") and that fetched the text value
+
+##############
+28th March, 2022
+Badges in Q1
+* Spark - Level 1
+* Hadoop Foundations - Level 1
+* Big Data Foundations - Level 2
+* Simplifying Data Pipelines with Apache Kafka
+
+##############
+29th March, 2022
+
+NULL
+
+##############
+6th April, 2022
+
+Journal IDs: 6338, 5941 ---> Issue with Pivot/ Lookup Table tested using simulate run and copied extra step to make sure input is provided correctly
+
+##############
+13th, April, 2022
+
+dev/qa down --> dry run, op format, header template report testing pending
+
+##############
+22nd April, 2022
+
+1) 'Posting Status' field to be added in classic view.
+2) Approve button should be disabled if no supporting documents are attached. storedValueConverter
+3) Add 'Business Unit' field on Journal and populate for existing journals with provided spreadsheet data. This field should also be available on Monthly run report.
+4) Final output result from the JEH view of the Historical Journal run view to be exported not only as CSV but also as XLSX including leading 0’s in required columns.
+
+

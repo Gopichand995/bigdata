@@ -1,0 +1,27 @@
+Job role / Specialty:
+Data Engineer - Big Data
+Service:
+Data & Technology Transformation
+Service area:
+Data Platforms
+Service component:
+ISV / Vendor:
+Required skills:
+●Professional programming experience and hands-on experience in building moderndata platforms/pipelines
+●Understanding the architecture of Data Warehouses and Data Lake concept
+●Programming languages: e.g. Python, Scala, Java
+●Frameworks: Spark, Hadoop, Hive (Beam, Pig, Kafka, Storm would be considered asa plus)
+●Experience with at least some tools: CI/CD, Apache Airflow, Oozie, orchestrationtools
+●Search engines: Elasticsearch, Solr
+●Databases: NoSQL, Relational databases (columnar & row-oriented), Graphdatabases
+●Experience in designing data pipelines, ETL, ELT
+●Cloud platforms: AWS, Azure, GCP and their data services
+●Interest in or experience with machine learning and artificial intelligence is a plus
+●Tools: Jupyter Notebooks, Apache Zeppelin, BI Tools
+Nice to have skills:
+Responsibilities:
+●Creating innovative new applications and building AI solutions for tasks previously thought too difficult for computers complex and distributes tasks
+●Building systems for ingestion, transformation and storage of vast amounts of datarequires special expertise
+●Designing, architecting and implementing modern cloud-based pipelines for our customers
+
+

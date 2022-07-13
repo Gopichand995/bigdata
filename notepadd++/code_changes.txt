@@ -1,0 +1,498 @@
+url = "https://ikdv5fcd89bfb2eb-journal.amecluster-eu-de-1-c2-617215335b792d24b1b9231440cb6afc-0000.eu-de.containers.appdomain.cloud/home"
+url = "https://r2rqa.amecluster-eu-de-1-c2-617215335b792d24b1b9231440cb6afc-0000.eu-de.containers.appdomain.cloud" \
+	  "/auth/realms/ikq15ef616feeaa4/protocol/openid-connect/auth?client_id=journal-web-app&redirect_uri=https%3A" \
+	  "%2F%2Fjournals-qa.amecluster-eu-de-1-c2-617215335b792d24b1b9231440cb6afc-0000.eu-de.containers.appdomain" \
+	  ".cloud%2Fhome&state=1678869c-575b-4ff9-84e5-f02dbdfc641e&response_mode=fragment&response_type=code&scope=" \
+	  "openid&nonce=add141a0-ca25-4ff8-83b5-c931667de575"
+
+############################################################
+
+calender_symbol.send_keys("13-03-2022")
+driver.find_element_by_css_selector("span[class='span-txt']").send_keys(run_date_day, run_date_month, run_date_year)
+
+checks the presence of upload success status
+if upload_success_elements[i]:
+	logger.info(f"rerun input{i + 1} uploaded successfully")
+	continue
+else:
+	pass
+
+trying to search the upload success status but
+upload_success_elements = driver.find_elements_by_css_selector("i[class='cu-fa fa fa-times success-color ng-star-inserted']")
+
+############################################################
+
+cu-fa fa fa-times fail-color ng-star-inserted, cu-fa fa fa-check success-color ng-star-inserted
+print(len(driver.find_elements_by_css_selector("i[class='cu-fa fa fa-check success-color ng-star-inserted']")))
+WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.CSS_SELECTOR, "i[class='cu-fa fa fa-check success-color ng-star-inserted']")))
+driver.execute_script("arguments[0].click();", upload_button)
+
+############################################################
+
+# retry with the explicit wait
+def retry(self, rerun_button_css):
+	flag = 1
+	while flag:
+		try:
+			self.wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, rerun_button_css))).click()
+			flag = 0
+		except Exception as e:
+			flag = 1
+
+############################################################
+
+# function name in the logs
+fn_name_from_inspect = inspect.stack()[0][3]
+    logger.info("".join(["[", fn_name_from_inspect, "]", " : Initializing"]))
+	
+############################################################
+
+C:\Users\GopichandBarri\Documents\Github\Journals-Command-Control\jc3-ui\src\assets\config\config.local.json
+for local setup
+"orctBaseUrl": "https://localhost:3000"
+for dev setup
+"orctBaseUrl": "https://ikdv5fcd89bfb2eb-journal.amecluster-eu-de-1-c2-617215335b792d24b1b9231440cb6afc-0000.eu-de.containers.appdomain.cloud/jccc-orct"
+
+df_complete.assign(**{'Category': 'achieved', 'SLA Time Covered': 'Already done'})
+df_active.assign(**{'Category': 'active', 'SLA Time Covered': fLess than {int(separators[0])}% time covered'})
+df_risk.assign(**{'Category': 'risk', 'SLA Time Covered': f"{int(separators[0])}% to {int(separators[1])}% time covered"})
+df_critical.assign(**{'Category': 'critical', 'SLA Time Covered': f'More than {int(separators[1])}% time covered'})
+
+# noinspection PyBroadException
+def number_am_or_pm(value):
+    if not value:
+        return None
+    elif int(value) == 0:
+        return '12:00AM'
+    elif int(value) < 12:
+        return value
+    elif int(value) == 12:
+        return '12:00PM'
+    else:
+        return f'{int(value) - 12}:00PM'
+		
+df_complete[["Source SLA Time", "Posting SLA Time"]] = df_complete[
+            ["Source SLA Time", "Posting SLA Time"]].apply(number_am_or_pm)
+			
+df_result[['Group with element(1)', 'Group with element(2)']] = df_result.grpelestr.str.split("--", expand=True)
+
+df_result['slapercent'] = df_result['slapercent'].apply(lambda x: 0 if x <= 0 else x)
+
+select oldresult.*, 
+	(case when (rundate between finstartdate and finenddate)
+			   and runstatus in ('Completed', 'Not to Post')
+			   then 0
+		  else 
+			  (case 
+				  when postingtoslahrspan <= pendingtopostinghr
+				  then 0
+				  else ((postingtoslahrspan - pendingtopostinghr)/postingtoslahrspan)*100
+			  end)
+	end ) slapercent
+############################################################	
+words = {'he', 'or', 'low'}
+p = regex.compile(r"\L<name>", name=words)
+m = p.findall('helloworld')
+print(m)
+############################################################
+add_clicks = []
+for i in range(len(operators)):
+	self.wait.until(EC.presence_of_all_elements_located((By.ID, self.add_new_rule_property_id)))[i].click()
+	while len(add_clicks) == i:
+		add_clicks = self.wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, "select[id*='cmbAndOr']")))
+		if len(add_clicks) == i + 1:
+			break
+
+############################################################
+def template_name_exists(self, template_name):
+	self.wait.until(EC.presence_of_element_located((By.XPATH, self.list_of_templates_xpath))).click()
+	self.wait.until(EC.element_to_be_clickable((By.ID, self.template_name_search_id))).send_keys(template_name)
+	template_results = self.wait.until(
+		EC.presence_of_all_elements_located((By.CSS_SELECTOR, self.template_results_css_selector)))
+	template_results_text = list(map(lambda x: x.text, template_results))
+	if template_name in template_results_text:
+		return True
+	return False
+############################################################
+import calendar
+, post_process as pp
+db_reconnection_window = 50
+wd_date = datetime.datetime.now().strftime("%d-%m-%Y")
+cal_id = master_json['about']['riskManagement']['calendar']['id']
+
+if i and i % db_reconnection_window == 0:
+	connection.close_db(_, con, cursor)
+	_, _, con, cursor = connection.connect_db()
+	logger.info("".join(["[", fn_name_from_inspect, "]", " : DB connection re-established successfully "
+														 "at jid : ", str(jid)]))
+############################################################
+status/isPaused
+
+# validate other relevant information
+if "status" not in input_req.keys() or "isPaused" not in input_req.keys():
+	logger.error("".join(["[", fn_name_from_inspect, "]", " : Source Metadata input param information missing",
+						  " : comp_code : ", comp_code]))
+	raise Exception
+
+
+############################################################
+CommonUtils
+
+@@ -3,18 +3,18 @@
+     "DB_SCHEMA": "$company",
+     "MQ_NAME": "Kafka",
+     "KAFKA_MAX_POLL_INTERVAL_MS": 500000,
+-    "DATASTORE": "/JCC/$company/dataStore/",
+-    "BULK_PATH": "/JCC/$company/bulkPath/",
+-    "SHARED_FOLDER": "/JCC/$company/sharedFolder/",
+-    "BULK_INPUT": "/JCC/$company/bulkInput/",
+-    "TEMPLATE_PATH": "/JCC/$company/templatePath/",
+-    "LOG_PATH": "/JCC/logPath/",
+-    "POSTING_HEADER": "/JCC/$company/postingHeader/",
+-    "OUTPUT_FORMAT": "/JCC/$company/outputFormat/",
+-    "MASTER_RULE": "/JCC/$company/masterRule/",
+-    "CERT_PATH": "/JCC/certPath/",
+-    "TENANCY_COMMON_PATH": "/JCC/tenancyCommonPath/",
+-    "SFTP_LANDING_PATH": "/JCC/$company/sftpLandingPath/",
++    "DATASTORE": "C:/journals_project_path/JCC/$company/dataStore/",^M
++    "BULK_PATH": "C:/journals_project_path/JCC/$company/bulkPath/",^M
++    "SHARED_FOLDER": "C:/journals_project_path/JCC/$company/sharedFolder/",^M
++    "BULK_INPUT": "C:/journals_project_path/JCC/$company/bulkInput/",^M
++    "TEMPLATE_PATH": "C:/journals_project_path/JCC/$company/templatePath/",^M
++    "LOG_PATH": "C:/journals_project_path/JCC/logPath/",^M
++    "POSTING_HEADER": "C:/journals_project_path/JCC/$company/postingHeader/",^M
++    "OUTPUT_FORMAT": "C:/journals_project_path/JCC/$company/outputFormat/",^M
++    "MASTER_RULE": "C:/journals_project_path/JCC/$company/masterRule/",^M
++    "CERT_PATH": "C:/journals_project_path/JCC/certPath/",^M
++    "TENANCY_COMMON_PATH": "C:/journals_project_path/JCC/tenancyCommonPath/",^M
++    "SFTP_LANDING_PATH": "C:/journals_project_path/JCC/$company/sftpLandingPath/",^M
+     "LOG_LEVEL": "DEBUG",
+     "LOGGING_TO_FILE": "True",
+     "LOGGING_TO_STREAM": "True",
+@@ -25,7 +25,7 @@
+     "FILE_CHECKER_POLL_SLEEP_INTERVAL": 30,
+     "CORS_URL": [ "https://localhost:3000", "https://dgacher2rdv01.w3-969.ibm.com:32646", "https://localhost:4200"],
+     "FILE_DELIMITER": ",",
+-    "IS_ENCRYPTED": "False",
++    "IS_ENCRYPTED": "True",^M
+     "ASSISTANT_ID": "01dbb201-c71e-4881-8a7d-601cbbe5af43",
+     "API_KEY": "qPInM-jFmMbmuNJBmJcUilYptXrSdnuk2349e-sLXV_n",
+     "WA_VERSION": "2019-02-28",
+
+(base) C:\Users\GopichandBarri\Documents\Github\CommonUtils>
+############################################################
+Journals-Command-Control
+
+(base) C:\Users\GopichandBarri\Documents\Github\Journals-Command-Control>git diff jc3-ui/src/assets/config/config.local.json
+diff --git a/jc3-ui/src/assets/config/config.local.json b/jc3-ui/src/assets/config/config.local.json
+index cc42c948..344ee2bf 100644
+--- a/jc3-ui/src/assets/config/config.local.json
++++ b/jc3-ui/src/assets/config/config.local.json
+@@ -18,5 +18,5 @@
+     "keycloakAccName": "journal",
+     "encrpPlusReplaceKey": "AAAB000WERDF",
+     "isConnectToOrct": true,
+-    "orctBaseUrl": "https://ikdv5fcd89bfb2eb-journal.amecluster-eu-de-1-c2-617215335b792d24b1b9231440cb6afc-0000.eu-de.containers.appdomain.cloud/jccc-orct"
++    "orctBaseUrl": "https://localhost:3000"
+ }
+
+(base) C:\Users\GopichandBarri\Documents\Github\Journals-Command-Control>
+############################################################
+JCCC-ORCH
+
+{
+    "BASE_URL": "",
+
+    "KC_URL": "https://r2rregistry.amecluster-eu-de-1-c2-617215335b792d24b1b9231440cb6afc-0000.eu-de.containers.appdomain.cloud",
+    "KC_REALM": "dkl488ee8c964364",
+    "KC_CLIENT_ID": "journal-web-app",
+    "KC_CRED_SECRET": "027442ed-1aed-4070-99c8-f9234e4ae3b4",
+    "KC_ACCOUNT_NAME": "Ibm-Kol",
+    "KC_ENABLED": "F",
+    "KC_AUTO_LOGOUT_TIME_IN_SEC": 20,
+
+    "ENCP_KEY": "123456$#@$^@1ERF",
+
+    "CLIENT_NAME": "",
+    "HELP_URL": "http://dgacher2rdv01.w3-969.ibm.com:30837/proxy-server/api/code/{ralm}/devex",
+
+    "NODE_SSL_KEY_FILE_FULL_PATH": "ssl/jccc_key.pem",
+    "NODE_SSL_CERT_FILE_FULL_PATH": "ssl/jccc_crt.pem",
+
+    "IS_URL_ENCODED": "F",
+    "CORS_URLS": "https://localhost:4200",
+
+    "JOURNAL_WD_DIFF_IN_MIN": "120",
+    "SUP_DOC_FILE_MAX_SIZE_IN_MB": "5",
+
+    "HTTPS_SERVER_TIMEOUT_IN_SEC": 420,
+    "IS_HTTPS_SERVER": "T",
+    "IS_FINANCIAL_SHOW": "F",
+    "COMPANY_KEY_FROM_LANDING": "pg",
+    "OUTPUT_TEMPLATE_FILE_NAME": "Result{templateName}", 
+    "IS_KC_TOKEN_VALIDATE": "T",
+    "ADVISOR_MONTH_NUMBER_COUNT_FROM_CURRENT": 12,
+    "CONFIG_RUN_STATUS_CALL_IN_SEC": 10,
+    "CONFIG_RUN_STATUS_CALL_MAX_COUNT": 20,
+    "IS_AUTO_LOG_OFF_WORK": "T",
+    "IS_REDIS_ENABLE": "T",
+    "REDIS_URL": "redis://127.0.0.1:6379",
+    "IS_JOURNAL_MIGRATION_EXPORT_ENABLE": "T",
+    "IS_JOURNAL_MIGRATION_IMPORT_ENABLE": "T",
+    "KC_VALIDATE_USER_CHECK_TIME_IN_MIN": 5,
+
+    "HST001": "https://localhost:8000",
+    "HST002": "https://localhost:8000",
+    "HST003": "https://localhost:8000",
+    "HST004": "https://localhost:8000",
+    "HST005": "https://localhost:8000",
+    "HST006": "https://localhost:8000",
+    "HST007": "https://localhost:8000",
+    "HST008": "https://localhost:8000",
+    "HST009": "https://localhost:8000",
+    "HST010": "https://localhost:8000",
+    "HST011": "https://localhost:8011",
+    "HST012": "https://localhost:8000",
+    "HST013": "https://localhost:8000",
+
+    "HOST_COUNT": 15,
+    
+    "HOST_COUNT_RECON": 10,
+    "HST050": "",
+    "HST051": "",
+    "HST052": "",
+    "HST053": "",
+    "HST054": "",
+    "HST055": "",
+    "HST056": "",
+    "HST057": "",
+    "HST058": "",
+    "HST059": "",
+
+    "HOST_COUNT_AUTH": 1,
+    "HST015": ""
+}
+###############################################################################
+
+complt
+err
+pcsing
+
+
+ Audit_WorkBook_JCC_Custom_Run_4929_18-01-2022.zip 
+ 
+ 
+
+def offline_download_workbook_status(self, jid, rundate):
+	offline_download_items = self.wait.until(
+		EC.presence_of_all_elements_located((By.CSS_SELECTOR, self.offline_download_items_css_selector)))
+	# offline_download_items_span = self.wait.until(
+	#     EC.presence_of_all_elements_located((By.CSS_SELECTOR, self.offline_download_items_span_css_selector)))
+	if offline_download_items[0].text.strip().lower() not in \
+			["audit_workbook_" + str(jid) + "_" + rundate.replace('/', '-') + ".zip",
+			 "audit_workbook_jcc_config_" + str(jid) + "_" + rundate.replace('/', '-') + ".zip",
+			 "audit_workbook_jcc_custom_run_" + str(jid) + "_" + rundate.replace('/', '-') + ".zip"]:
+		return False
+	class_name = offline_download_items[0].get_attribute('class')
+	# span_class_name = offline_download_items_span[0].get_attribute('class')
+	# if "err" in span_class_name.strip().lower():
+	#     return False
+	if class_name.strip().lower() != self.offline_download_item_download_class_status:
+		while True:
+			offline_download_items = self.wait.until(
+				EC.presence_of_all_elements_located((By.CSS_SELECTOR, self.offline_download_items_css_selector)))
+			class_name = offline_download_items[0].get_attribute('class')
+			if class_name.strip().lower() != self.offline_download_item_download_class_status:
+				time.sleep(5)
+				self.wait.until(
+					EC.element_to_be_clickable((By.NAME, self.offline_download_refresh_button_name))).click()
+				time.sleep(3)
+			else:
+				break
+	return True
+	
+	
+" Audit_WorkBook_JCC_Config_4929_18-01-2022.zip ".strip().lower() in \
+                ["audit_workbook_" + str(jid) + "_" + rundate.replace('/', '-') + ".zip",
+                 "audit_workbook_jcc_config_" + str(jid) + "_" + rundate.replace('/', '-') + ".zip",
+                 "audit_workbook_jcc_custom_run_" + str(jid) + "_" + rundate.replace('/', '-') + ".zip"]
+############################################################
+statsmodels==0.11.0
+opencv-python==4.2.0.32
+kafka-python==2.0.1
+cryptography==3.2.1
+python-keycloak==0.20.0
+ibm-cos-sdk==2.6.3
+ibm_watson==5.1.0
+############################################################
+(base) C:\Users\GopichandBarri\Documents\Github\CommonUtils>git diff  src/jc3commonutils/config/configuration.json
+diff --git a/src/jc3commonutils/config/configuration.json b/src/jc3commonutils/config/configuration.json
+index d02c531..4a59b46 100644
+--- a/src/jc3commonutils/config/configuration.json
++++ b/src/jc3commonutils/config/configuration.json
+@@ -3,18 +3,18 @@
+     "DB_SCHEMA": "$company",
+     "MQ_NAME": "Kafka",
+     "KAFKA_MAX_POLL_INTERVAL_MS": 500000,
+-    "DATASTORE": "/JCC/$company/dataStore/",
+-    "BULK_PATH": "/JCC/$company/bulkPath/",
+-    "SHARED_FOLDER": "/JCC/$company/sharedFolder/",
+-    "BULK_INPUT": "/JCC/$company/bulkInput/",
+-    "TEMPLATE_PATH": "/JCC/$company/templatePath/",
+-    "LOG_PATH": "/JCC/logPath/",
+-    "POSTING_HEADER": "/JCC/$company/postingHeader/",
+-    "OUTPUT_FORMAT": "/JCC/$company/outputFormat/",
+-    "MASTER_RULE": "/JCC/$company/masterRule/",
+-    "CERT_PATH": "/JCC/certPath/",
+-    "TENANCY_COMMON_PATH": "/JCC/tenancyCommonPath/",
+-    "SFTP_LANDING_PATH": "/JCC/$company/sftpLandingPath/",
++    "DATASTORE": "C:/journals_project_path/JCC/$company/dataStore/",^M
++    "BULK_PATH": "C:/journals_project_path/JCC/$company/bulkPath/",^M
++    "SHARED_FOLDER": "C:/journals_project_path/JCC/$company/sharedFolder/",^M
++    "BULK_INPUT": "C:/journals_project_path/JCC/$company/bulkInput/",^M
++    "TEMPLATE_PATH": "C:/journals_project_path/JCC/$company/templatePath/",^M
++    "LOG_PATH": "C:/journals_project_path/JCC/logPath/",^M
++    "POSTING_HEADER": "C:/journals_project_path/JCC/$company/postingHeader/",^M
++    "OUTPUT_FORMAT": "C:/journals_project_path/JCC/$company/outputFormat/",^M
++    "MASTER_RULE": "C:/journals_project_path/JCC/$company/masterRule/",^M
++    "CERT_PATH": "C:/journals_project_path/JCC/certPath/",^M
++    "TENANCY_COMMON_PATH": "C:/journals_project_path/JCC/tenancyCommonPath/",^M
++    "SFTP_LANDING_PATH": "C:/journals_project_path/JCC/$company/sftpLandingPath/",^M
+     "LOG_LEVEL": "DEBUG",
+     "LOGGING_TO_FILE": "True",
+     "LOGGING_TO_STREAM": "True",
+@@ -25,7 +25,7 @@
+     "FILE_CHECKER_POLL_SLEEP_INTERVAL": 30,
+     "CORS_URL": [ "https://localhost:3000", "https://dgacher2rdv01.w3-969.ibm.com:32646", "https://localhost:4200"],
+     "FILE_DELIMITER": ",",
+-    "IS_ENCRYPTED": "False",
++    "IS_ENCRYPTED": "True",^M
+     "ASSISTANT_ID": "01dbb201-c71e-4881-8a7d-601cbbe5af43",
+     "API_KEY": "qPInM-jFmMbmuNJBmJcUilYptXrSdnuk2349e-sLXV_n",
+     "WA_VERSION": "2019-02-28",
+############################################################
+logger exception new line issue
+sys.exit("ERROR : Failure in data file decryption. " +
+                     str(sys.exc_info()).replace("\n", " | ").replace("\r", ""))
+############################################################
+self.logger.info(f"Step Description|{str(inspect.stack()[0][3]).replace('_', ' ').capitalize()}")
+df["Actual Results"] = df["Actual Results"].apply(eval)
+############################################################
+log_to_report_parser
+
+import pandas as pd
+
+df = pd.read_csv("C:\\Users\\GopichandBarri\\Desktop\\auto.csv", header=None)
+df[[1, 2, 3, 4]] = df[0].str.split('|', expand=True)
+df1 = df.iloc[:, [3, 4]]
+df2 = pd.DataFrame.transpose(df1)
+df2.to_csv("C:\\Users\\GopichandBarri\\Desktop\\auto_new.csv", header=None, index=None)
+df3 = pd.read_csv("C:\\Users\\GopichandBarri\\Desktop\\auto_new.csv")
+df3 = df3.loc[:, ~df3.columns.str.contains('Unnamed')]
+n = 4
+df4 = pd.DataFrame()
+for i in range(int(len(df3.columns) / n)):
+    df5 = df3.iloc[:, 4 * i:4 * (i + 1)]
+    df5.columns = ["Step#", "Expected Results", "Step Description", "Actual Results"]
+    df4 = pd.concat([df4, df5], ignore_index=True)
+df4 = df4[["Step#", "Step Description", "Expected Results", "Actual Results"]]
+print(df4)
+# df4.to_csv("C:\\Users\\GopichandBarri\\Desktop\\auto_new_new.csv", index=None)
+############################################################
+how to fetch files using glob.glob
+fil1 = [f_file for f_file in glob.glob(os.path.normpath(data_store+"/"+str(journal_id) +
+                                                                    "/Test/Input/*.csv"), recursive=True)]
+
+# for task in [self.advisor.click_on_ran_by_user_icon(rundate),
+#              self.advisor.click_on_advisor_results_name(rundate),
+#              self.advisor.click_on_advisor_results_groups(rundate),
+#              self.advisor.click_on_advisor_results_frequency(rundate)]:
+
+# logger.info("****** Clicking on validation results ******")
+# self.advisor.click_on_validation_results()
+# status_counter += 1
+#
+# logger.info("****** Checking the  validation results status ******")
+# validation_status = self.advisor.check_validation_results_status()
+# if not validation_status:
+#     self.driver.save_screenshot(".\\Screenshots\\" + "test_advisor_scr.png")
+#     assert False
+# status_counter += 1
+# logger.info("Clicking on the submit for review")
+# self.advisor.click_on_submit_for_review(self.comment_submit_for_review)
+# logger.info("Submit for review clicked successfully")
+
+logger.info("****** Clicking on the current month-1 ******")
+self.advisor.click_on_current_month_1()
+
+def click_on_current_month_1(self):
+	self.select = Select(
+		self.wait.until(EC.presence_of_element_located((By.ID, self.current_month_id))))
+	self.select.select_by_visible_text("Current Month - 1")
+	self.wait_until_api_loads()
+
+current_month_id = "cmbJournalDataMonth"
+
+#####################
+dry run by purbasha
+
+def row_column(self):
+	if self.wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, "i[class='cu-fa fa fa-edit']"))):
+		list2 = []
+		list3 = []
+		jid_list = self.wait.until(EC.presence_of_all_elements_located(
+			(By.CSS_SELECTOR, "span[class='link-text font-bold ng-star-inserted']")))
+		dry_el = self.wait.until(
+			EC.presence_of_all_elements_located((By.CSS_SELECTOR, "button[aria-label*='Dry run']")))
+		butn = self.wait.until(
+			EC.presence_of_all_elements_located((By.CSS_SELECTOR, "i[class='cu-fa fa fa-edit']")))
+		for jid in range(len(jid_list)):
+			print(jid_list[jid].text)
+			list2.append(jid_list[jid].text)
+		print(list2)
+		for i in range(len(dry_el)):
+			print(dry_el[i].get_attribute('aria-label'))
+			list3.append(dry_el[i].get_attribute('aria-label'))
+		print(list3)
+		for k in range(len(list2)):
+			for l in list3:
+				if list2[k] in l:
+					butn[k].click()
+				break
+	else:
+		self.wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, self.next_pg_css_sel))).click()
+#####################
+&&&&&&& Approve button should be disabled if no supporting documents are attached. storedValueConverter &&&&&&&&
+console.log(this.supportingDocsComponent.totalSuppDocCount)
+
+suppDocsDetails: Array<SupportingDocModel> = new Array<SupportingDocModel>();
+
+private supportingDocsComponent: SupportingDocsComponent,
+
+
+import { SupportingDocumentBusinessService } from 'src/app/services/business/supporting-document-business.service';
+import { SupportingDocModel } from 'src/app/models/supportingDoc.model';
+import { SupportingDocsComponent } from 'src/app/components/business/common/supporting-docs/supporting-docs.component'
+
+ 
+if(this.totalSuppDocCount == 0){
+  this.suppDocApproval = false;
+} 
+console.log(this.totalSuppDocCount);
+			
+			
+suppDocApproval: boolean = true;
+
+import { SupportingDocModel } from '../models/supportingDoc.model';
+suppDocList: Array<SupportingDocModel> = new Array<SupportingDocModel>();
+
+this.suppDocStatus = this.supportingDocsComponent.suppDocApproval;
+suppDocStatus: boolean = true;
+private supportingDocsComponent: SupportingDocsComponent,
+import { SupportingDocsComponent } from 'src/app/components/business/common/supporting-docs/supporting-docs.component'
+
+[isDisabled]="suppDocStatus"
+
+
+
+

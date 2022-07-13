@@ -1,0 +1,435 @@
+r2a
+
+username: gopbarri@in.ibm.com
+password: Gunjansaxena7860*
+
+https://ameiam.nonprod.ame.gps.ihost.com/auth/realms/spt2855aeaea2f04/login-actions/action-to[…]PUkQiXX0.ERZCU_HJb9DNk9-88B1r4yH8o3kwB-_PjVjfHZYaPx8
+https://ameiam.nonprod.ame.gps.ihost.com/auth/realms/spt2855aeaea2f04/protocol/openid-connect/auth?client_id=journal-web-app&redirect_uri=https%3A%2F%2Fjournals-perf-ui.nonprod.ame.gps.ihost.com%2F&state=1bb1d8d1-93d9-4eaf-8b6b-afe145df613c&response_mode=fragment&response_type=code&scope=openid&nonce=cf3321a5-8365-4d01-878e-a084b1006053
+
+ilc code: AZP20
+8GT02P3J       R2A -GBS CBDS CoC AI work                         2020-07-03     2021-12-31     AZP20          
+
+new link on 21/01/21
+https://asf6a5c18deee14f-r2rstage.r2r-k8s-fra.eu-de.containers.appdomain.cloud/commonLanding
+https://ameiam.nonprod.ame.gps.ihost.com/auth/realms/asf6a5c18deee14f/protocol/openid-connect/auth?client_id=r2r-web-app&redirect_uri=https%3A%2F%2Fasf6a5c18deee14f-r2rstage.r2r-k8s-fra.eu-de.containers.appdomain.cloud%2FcommonLanding&state=93f5941a-fc54-4431-9cf2-e2ef714b67ce&response_mode=fragment&response_type=code&scope=openid&nonce=a7b8d3fd-d776-4a87-889c-c63d862000af
+username: gopbarri@in.ibm.com
+password: Rockybalboa7860*
+
+box folder: https://ibm.ent.box.com/folder/130034247315
+
+########################################################################################################################################################################################################
+Assessment 1A
+
+step1: Consider only data on company codes 2646 and remove the line items for any other company codes 
+step2: Split Cost Center from Cost Center Column which is the last 5 digits
+step3: Update the CRG column by way of Vlook up by taking Cost center as the base from Cost Center Master Exclude any N/A rows
+step4: Update the Profit Center column with following stesps Vlookup cost center as the base and pick the Profit cente from Cost Center MasterExclude any Na Rows    <----->
+step4: Under CRG filter to include 5100 5200 5300 5400 5600 5700 6100 6200 till 6399 and ignore the other CRGs
+step5: Filter on Profit Center 900158 select ok
+step6: Update the Category Column as OpCo remove all other rows
+step7: Create a Pivot Table on Cost Center as rows and sum of Posted Amount
+step8: Lookup Company Code from Cost Center Master to Pivot Table based on Cost Center
+step9: Calculate offset Entry which is the total of all Cost Centers (Reverse the sign)
+step10: "Populate the Journal Output Template
+		Debit
+		GL Account = 41318001
+		Document Amount = Total for each Cost Center from Pivot
+		Company Code = Company Code from Cost Center Master
+		Cost Centre = Cost Centre (Last 5 Digits from Cost Center column)
+		GL Text - Concur Accrual - OpCo Oct 19
+step11: "Populate the Journal Output Template
+		Credit
+		GL Account = 14410001
+		Document Amount = Total  of all Cost Centres * -1
+		Profit Centre = 800001
+		GL Text - Concur Accrual - OpCo Oct 19"
+########################################################################################################################################################################################################
+
+Update the Text Text should be relating to following Columns Coupa Order# plus Supplier through concatenate
+
+########################################################################################################################################################################################################
+
+Hi Team,
+
+As per our discussion regarding DB client configuration, database structure please find the detail
+
+1> DB client setup: Download "dbeaver" any latest version. It is a .zip file. No need to install any thing; just unzip the file and use. Attached a zip    
+(See attached file: dbeaver-ce-7.1.1-win32.win32.x86_64.zip)
+
+2> DB connection set up:
+    "HOST": "bed8e2d5-eu-de.lb.appdomain.cloud",
+    "PORT": "5432",
+    "DATABASE NAME": "zt4f957aabbdfbf4",
+    "USER": "postgres",
+    "PASSWORD": "Passw@rd12345678"
+
+ 3> High level overview of database and schema structure for jouranl application.
+   (See attached file: DB structure detail.docx)
+  
+########################################################################################################################################################################################################   
+useful urls:
+
+dev ui url avik login
+username: avdutta7@in.ibm.com
+password: r2r123
+
+box url
+https://ibm.ent.box.com/folder/131476299613/collaborators
+
+
+github url
+https://github.ibm.com/JC3-UI/Journals-Command-Control
+
+angular js 
+https://www.tutorialspoint.com/angularjs/angularjs_quick_guide.htm
+
+########################################################################################################################################################################################################
+run the application
+
+backend(JCCC-BE)
+(base) C:\Users\GopichandBarri\Documents\Github\JCCC-BE\src\main\jccc_be>python wsgi.py
+orchestrator(JCCC-ORCT)
+(base) C:\Users\GopichandBarri\Documents\Github\JCCC-ORCT\jc3-orct>node app.js
+ui(Journals-Command-Control)
+(base) C:\Users\GopichandBarri\Documents\Github\Journals-Command-Control\jc3-ui>ng serve
+
+########################################################################################################################################################################################################
+
+Following methods are available in the JSON module
+
+Method	Description
+dumps()	encoding to JSON objects
+dump()	encoded string writing on file
+loads()	Decode the JSON string
+load()	Decode while JSON file read
+
+########################################################################################################################################################################################################
+Notes:
+* A constructor in Java is a special method that is used to initialize objects. The constructor is called when an object of a class is created.
+
+########################################################################################################################################################################################################
+code changes
+
+82...........or "jName" not in input_data.keys() or "templateName" not in input_data.keys():
+template_name = None
+	template_name = input_data["templateName"].strip()
+	if template_name == "" or template_name is None:
+		template_name = "All"
+			
+if template_name != "All":
+str_filter = str_filter + " and lower(jtm.name) like lower('{}')".format("%%"+template_name+"%%")
+
+#####################################
+ isShowPostingErrorDetails(journalStatus: string): boolean{
+    if(this.handlerLoaderService.objectHandlerService.isStringValid(journalStatus)){
+      return (journalStatus === this.enumLoaderService.journalStatusByWorkday.COMPLETED) || (journalStatus === this.enumLoaderService.journalStatusByWorkday.RUN_ERROR);
+    }
+    return false;
+  }
+#####################################
+
+<span *ngIf="!isShowPostingErrorDetails(journal.runStatus)">{{journal.runStatus}}&nbsp;</span>
+
+<app-popover [lable]="journal.runStatus.toString()" *ngIf="isWbOrSmDisabled(journal.runStatus)" position="top"
+                                titleText="{{journal.message}}" tooltipText="Execution Error"  [isLableShowsAsLink]="true" [isLableBold]="true"></app-popover>
+#####################################
+  isValidRulePass(isValidationRulePassed: string): boolean{
+    if(isValidationRulePassed){
+      return (isValidationRulePassed === "pass");
+    }
+    return false;
+  }					
+########################################################################################################################################################################################################
+
+Advisor Task - Suparna          Advisor Assignment
+Please try the below assignment and let me know your feedback
+1  In a particular date range ( date range is parameterized like current month , current month -1 etc )
+(i) view all journal run where failure occurred for execution ( not validation failed only execution failed ) and state the reason  ?
+(ii) view all journal run which auto approved and why ?  
+
+##########################################################################################################################################################
+
+2. In a particular date range ( date range is parameterized like current month , current month -1 etc)
+find journals where validation failed and show which validation rule failed for that particular journals .
+
+#########################################################################################################################################################
+
+3. In advisor 2nd level view (through group chat traversal ) ,
+if we check WD - wise journal status , in data analysis tab now 5 field are reflected,
+those are : Journal Id, Run Date, Journal Name, Status , Workday.
+Add two more field ( two check box: if ture then tick, else blank)with that
+(a) Is auto approved (isAutoApproved)
+(b) is all validation rule passed (isValidationRulePassed)
+
+#########################################################################################################################################################
+
+Note : Auto approval rule with related services both run and advisor will be covered tomorrows ,then you can try those part , For normal run and advisor detail are already covered, so start assignment if that part,
+
+########################################################################################################################################################################################################
+JEVA
+
+file size less ----> manual run
+file size high -----> manual run offline
+timeout - >120sec
+jccc-rerun ---- prod --- redis/celery
+ilog
+plog
+validation output
+execution
+cr dr output
+get_exec/get_exec_large_files
+redis/celery
+adhoc journal - no steps
+process output validation method
+post processing
+adhoc.py, get_exec.py, commonutils ----> JEVA
+
+################################################################################################################################################################################################
+
+15th Mar 2021
+* Update the journal configuration(sourcesla, postdatetime) in the utility_scripts in the jccc-be
+7th Apr 2021
+* Update the SFTP server, input file, output file, encryption, decryption, from the SFTP server to the VM, supporting documents, audit workloads
+
+
+################################################################################################################################################################################################
+
+sftp server
+hostname: sftp-emea.gps.ihost.com
+port: 22
+username: ibmjrnl_devqa
+pasword:
+program: r2rqa_ikq15ef61_pgid_70bd8cb6
+private key: ibmjrnl_devqaprivatekey(Github Backup directory)
+
+################################################################################################################################################################################################
+
+jccc-client-env-programs journal sftp vm python run commands
+
+(1)python setup.py sdist bdist_wheel clean --all       -----> commonutils folder
+
+(2)from the dist folder copy the whl file into the packages directory
+
+(3)pip uninstall jc3datautils      when changed(before pip install(4))
+
+(4)pip install --user -r requirements.txt --no-index --find-links=packages                -----> R2R_JOURNAL_DATA_EXTRACTION_PROGRAM folder
+
+
+abc .csv C:\journals_project_path\sftp\DOCUMENT_DATA\4030_05-04-2021_Result_AS400_SS_MinimalRisk_VPC-QA-KOL_IND
+
+################################################################################################################################################################################################
+
+Functionalities are not exactly written down below as per the design documentation. You may please refer to the diagram in the document. Anyway, I consider your lines with correctness.
+Addition of supporting documentation (including Audit WorkBook) extraction by Python Utility needs a good amount of effort, though the extraction of Output file might be less effort comparatively. 
+Regarding the effort and timelines, Bhaskar will be the best person to comment on this. J ust a note, ourteam is small and already occupied with implementation of huge number of CRs (new functionality). 
+So, we may need sometime to deliver.
+
+Setting up this time to discuss the development effort I was told is required to enable the Python decryption asset for journal posting in the IBM Instance. Please see Avik's note below on the matter:
+
+################################################################################################################################################################################################
+
+IBM Cloud
+https://cloud.ibm.com/iam/groups/AccessGroupId-8b02397a-913d-465b-8478-4471c5dab389?tab=users
+
+IBM LogDNA
+https://cloud.ibm.com/observe/logging
+
+GBS-CPS:CLOUD-AME--AME-Prod-ViewerTeam
+CBR_GBS-CPS-Cloud-PLATFORM
+https://itimde10.de.ibm.com/itim/ui/Login.jsp
+gopbarri@in.ibm.com
+Shahidjersey7860*
+Nature7860*
+
+################################################################################################################################################################################################
+
+tar -cvf R2R_JOURNAL_DATA_EXTRACTION_PROGRAM.tar R2R_JOURNAL_DATA_EXTRACTION_PROGRAM PGP_KEYS
+https://ibm.ent.box.com/folder/131832404037
+
+
+Staging - https://ibm.box.com/s/9jdcsuirzlc7qzji2xt608s7dwax15ap
+Prod - https://ibm.box.com/s/optxnbxbuzxut6exxhvkp0y8urlh3eab
+Password - JCCC@2020
+
+
+changes for new client utility
+pgp_keys, jccc-client-env-programs -> commonutils -> src -> jc3datautils -> config -> sftp_keys	
+sftp_user, pgp_passphrase base64encode
+SFTP_KEY_FILE_NAME
+PGP_PRIVATE_KEY_FILE
+PGP_PUBLIC_KEY_FILE
+
+################################################################################################################################################################################################
+
+16th June 2021
+
+selenium browser testing automation
+https://www.browserstack.com/guide/python-selenium-to-run-web-automation-test
+
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.ui import Select
+
+
+
+
+driver.implicit_wait(t)
+whereas in explicit wait, wait = WebDriverWait(driver, t) where t is max timeout but doesn't take that time to load the element
+element = wait.until(EC.element_to_be_clickable((By.XPATH, "")))
+
+#Dropdowns
+element = driver.find_element_by_id("")
+drp = Select(element)
+drp.select_by_visible_text(''), drp.select_by_index(1 or 2 or 3...), drp.select_by_value('')
+
+
+
+#####################################################################################################################################################################################################################################
+
+Details: driver.title, driver.current_url
+
+Pages: driver.back, driver.forward
+
+Conditions: is_enabled, is_displayed, is_selected
+
+Waits: Implicit Wait & Explicit Wait
+
+Check Items: Radio Buttons, Checkboxes & Dropdowns
+
+
+https://admin-demo.nopcommerce.com/admin/
+
+your learning selenium 
+https://learning.oreilly.com/videos/browser-automation-with/9781800560161/9781800560161-video2_1/
+https://learning.oreilly.com/videos/selenium-python-automation/9781800567733/9781800567733-video1_1/
+
+#####################################################################################################################################################################################################################################
+Error1:  Internet Explorer Driver not working
+selenium.common.exceptions.WebDriverException: Message: Unexpected error launching Internet Explorer. IELaunchURL() returned 800700C1 for URL 'http://localhost:56195/'
+
+Solution:
+https://stackoverflow.com/questions/25047318/unexpected-error-launching-internet-explorer-ielaunchurl-returned-800700c1
+It seems a bit odd, but when I checked, there was a 0 byte "Program" file in the root of the C drive. I deleted the file and the issue went away.
+#####################################################################################################################################################################################################################################
+Defect1:
+12:08
+Below was the issue details
+Hi team,
+I am facing an issue with the below two journals 4756 & 4713 (I have 31 analogical to these journals) in Prod. system, so I would really appreciate if this is some kind of bug which could be fixed and no reconfigurations to be needed...
+When I do the manual runs with test data the Data Clean-up modification is not happening as configured for input "EXCH_RATE". 
+During configuration I have applied two data clean-ups:
+1) to remove the 3rd and 4th columns as not needed &
+2) header to be the 4th row.
+This is the approach I discussed with my colleague to avoid the first field in the input file which contains dynamic value with the name of the respective Month (e.g. May/December etc.) and it is working for her (example journal ID 4699).
+Sending you attached screenshots on how the modified via data clean-up input look like and how it appears in the manual run (with no data clean up applied).
+I am attaching as example also the input files - the EXCH_RATE.xlsx is the one used in configuration, the EXCH_RATE_12.2020.xlsx is the one used in the manual run. 
+Please check and advise why is this issue happening (why the configured data clean up is not applied during manual runs) and how could this be fixed? Thanks a lot in advance for the support!
+12:09
+So we suggested the user to add another step to the Jr : Create a dummy step before step 9 as below using exchange rate :
+Use text string function create one dummy column like EXCH_RATE[DUMMY1] = EXCH_RATE[LOCALCURRENCYCODE]
+12:09
+even after doing this they still face the below error :
+12:09
+Unfortunately it is not working :( 
+I've done this in journal 4713 (as for this CTY the output result will have records and it's better example than 4756 which is absolutely analogical in terms of EXCH_RATE merging), but the merge with EXCH_RATE was happening here initially on Step 13, so as you advised I've added interim step for Dummy column creation, but it's failing on it upon manual run - please refer to below 3 screenshots.
+Could you please investigate a bit further so that we can understand and fix the root cause for not applying the configured Data clean-up modifications for input EXCH_RATE? Thanks a lot for the support!
+
+
+Jul 1 14:42:18 python-be-ingress-deployment-7d6b556c44-7vh8z python-be DEBUG 106 - 2021-07-01 09:12:18,886 - journal - DEBUG - [get_data] : DB connected successfully
+Jul 1 14:42:18 python-be-ingress-deployment-7d6b556c44-7vh8z python-be DEBUG 106 - 2021-07-01 09:12:18,906 - journal - DEBUG - [get_data] : Fetch run version successfully for jid 4135
+Jul 1 14:42:18 python-be-ingress-deployment-7d6b556c44-7vh8z python-be ERROR 106 - 2021-07-01 09:12:18,929 - journal - ERROR - [get_data] : Untracked Exception | 'Traceback (most recent call last): |   
+File "/usr/local/lib/python3.7/site-packages/cryptography/fernet.py", line 113, in _verify_signature |     h.verify(data[-32:]) |   File "/usr/local/lib/python3.7/site-packages/cryptography/hazmat/primitives/hmac.py", 
+line 70, in verify |     ctx.verify(signature) |   File "/usr/local/lib/python3.7/site-packages/cryptography/hazmat/backends/openssl/hmac.py", line 78, in verify |     
+raise InvalidSignature("Signature did not match digest.") | cryptography.exceptions.InvalidSignature: Signature did not match digest. |  | During handling of the above exception, another exception occurred: |  | 
+Traceback (most recent call last): |   File "/JCC/journal.py", line 713, in get_data |     decrypt_out = encrypt_decrypt.decrypt_inmemory(file_name_with_path, KEY) |   
+File "/usr/local/lib/python3.7/site-packages/jc3commonutils/encrypt_decrypt.py", line 96, in decrypt_inmemory |     decrypted_data = f_key.decrypt(encrypted_data) |   
+File "/usr/local/lib/python3.7/site-packages/cryptography/fernet.py", line 76, in decrypt |     return self._decrypt_data(data, timestamp, ttl, int(time.time())) |   
+File "/usr/local/lib/python3.7/site-packages/cryptography/fernet.py", line 125, in _decrypt_data |     self._verify_signature(data) |   
+File "/usr/local/lib/python3.7/site-packages/cryptography/fernet.py", line 115, in _verify_signature |     raise InvalidToken | cryptography.fernet.InvalidToken'
+Jul 1 14:42:18 python-be-ingress-deployment-7d6b556c44-7vh8z python-be DEBUG 106 - 2021-07-01 09:12:18,930 - journal - DEBUG - [get_data] : DB Closed successfully
+
+
+4144 issue replication for 4173 jid: 
+
+Jul 5 17:10:13 jccc-rerun-deployment-df6ddc48d-jppz5 jccc-rerun ERROR 292 - 2021-07-05 11:40:13,174 - get_exec - ERROR - [get_exec_method] : Exception in execute 
+| 'Traceback (most recent call last): |   File "/usr/local/lib/python3.7/site-packages/pandas/core/indexes/base.py", line 3080, in get_loc |     return self._engine.get_loc(casted_key) |   
+File "pandas/_libs/index.pyx", line 70, in pandas._libs.index.IndexEngine.get_loc |   File "pandas/_libs/index.pyx", line 101, in pandas._libs.index.IndexEngine.get_loc |   
+File "pandas/_libs/hashtable_class_helper.pxi", line 4554, in pandas._libs.hashtable.PyObjectHashTable.get_item |   File "pandas/_libs/hashtable_class_helper.pxi", line 4562, 
+in pandas._libs.hashtable.PyObjectHashTable.get_item | KeyError: \'LOCALCURRENCYCODE\' |  | The above exception was the direct cause of the following exception: | 
+ | Traceback (most recent call last): |   File "/usr/local/lib/python3.7/site-packages/jc3commonutils/execute.py", line 273, in get_exec_method |     exec(file.read()) |   
+ File "<string>", line 1029, in <module> |   File "/usr/local/lib/python3.7/site-packages/pandas/core/frame.py", line 3024, in __getitem__ |     indexer = self.columns.get_loc(key) | 
+ File "/usr/local/lib/python3.7/site-packages/pandas/core/indexes/base.py", line 3082, in get_loc |     raise KeyError(key) from err | KeyError: \'LOCALCURRENCYCODE\''
+
+Solution:
+@jyothis3 hi jyothi...we have looked into the issue...we notice that in one of the input files for the re-run i.e. "Copy of EXCH_RATE_12.2020", the actual header row(5th row in the file) 
+has duplicate column names(say "I/E AVERAGE" which is used in the process steps)...so u have to make sure that there are no duplicates in the input re-run file...the header cleanup code expects the same 
+
+#####################################################################################################################################################################################################################################
+R2A Application 
+
+dev url: https://ikdv5fcd89bfb2eb-journal.amecluster-eu-de-1-c2-617215335b792d24b1b9231440cb6afc-0000.eu-de.containers.appdomain.cloud/home
+
+business admin: id: sayantas@in.ibm.com pwd: r2r123
+approver: id: monika.murmu@in.ibm.com  pwd: r2r123
+approver: id: gopbarri@in.ibm.com  pwd: r2r123
+sayasen1, r2r123
+
+
+Useful URLs
+https://cloud.ibm.com/
+https://jsoneditoronline.org/
+
+https://www.rahulshettyacademy.com/AutomationPractice/
+https://www.edureka.co/community/9280/error-stale-element-reference-element-attached-page-document
+https://stackoverflow.com/questions/57741875/selenium-common-exceptions-elementclickinterceptedexception-message-element-cl
+https://www.dataquest.io/blog/tutorial-add-column-pandas-dataframe-based-on-if-else-condition/
+
+#####################################################################################################################################################################################################################################
+https://r2rregistry.amecluster-eu-de-1-c2-617215335b792d24b1b9231440cb6afc-0000.eu-de.containers.appdomain.cloud/auth/realms/ikdv5fcd89bfb2eb/protocol/openid-connect/auth?client_id=journal-web-app&redirect_uri=https%3A%2F%2Fikdv5fcd89bfb2eb-journal.amecluster-eu-de-1-c2-617215335b792d24b1b9231440cb6afc-0000.eu-de.containers.appdomain.cloud%2F&state=c1589378-a605-4d54-8105-2dd6a4242b85&response_mode=fragment&response_type=code&scope=openid&nonce=8e7f3f64-4482-4795-b7a9-f4b4f69aa63c
+
+C:\\Gopichand\\work\\r2a\\journal_issues\\4173\\input\\TECH_VOUCHER_PAGE.csv
+{'input1'='C:\\Gopichand\\work\\r2a\\journal_issues\\4173\\input\\TECH_VOUCHER_PAGE.csv', 'input2'='C:\\Gopichand\\work\\r2a\\journal_issues\\4173\\input\\CTY_CODES_CROSSBRAND.csv'}
+
+/html/body/app-root/div/div/div[2]/app-jeva/main/div/div[2]/div/div/app-upload-data/div[2]/div[2]/div[2]/div/div/div[1]/div[2]/app-file-uploader/div/div[3]
+
+div[class='col u-optn optn-r pointer'] --------> logout css_selector
+
+python rerun.py --jid 4144 --rundate 15/7/2021
+
+cu-fa fa fa-check success-color ng-star-inserted --------> pass
+cu-fa fa fa-times fail-color ng-star-inserted -----------> fail
+app-icon-only[dynamicclass='fail-color']
+app-icon-only[dynamicclass='success-color']
+
+
+just mention as below
+If you want leading zero in the final output file
+then please set this kind of thing in template level.  we have a option leading zero in template level admin->output fomatting
+So you don't need to create process steps for leading zero.
+
+
+[8580:6008:0714/165220.507:ERROR:device_event_log_impl.cc(214)] [16:52:20.507] USB: usb_device_handle_win.cc:1058 Failed to read descriptor from node connection: A device attached to the system is not functioning. (0x1F)
+
+%%%%%%%%%%%% Re-Run Automation %%%%%%%%%%%%
+# explicit wait times
+# upload wait time
+# parameterize the rerun inputs
+
+
+#4924
+allocation has dept 017 whereas usdetail_mapping has dept 17 so unable to join
+386 step_9 data 01712 merged_column
+5144 allocation 017
+785-805 usdetail_mapping 17
+
+
+webex meeting urls
+suparna
+https://ibm.webex.com/meet/suparnch
+mohan babu
+https://ibm.webex.com/meet/suparnch
+
+
