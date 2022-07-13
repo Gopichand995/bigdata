@@ -13,7 +13,7 @@ if __name__ == "__main__":
     kafka_prod_obj = KafkaProducer(bootstrap_servers=KAFKA_BOOTSTRAP_SERVERS,
                                    api_version=(0, 11, 5),
                                    value_serializer=lambda x: dumps(x).encode("utf-8"))
-    file_path = "/pyspark/data/realestate1.csv"
+    file_path = "realestate1.csv"
     house_df = pd.read_csv(file_path)
     print(house_df.head())
 
@@ -24,4 +24,4 @@ if __name__ == "__main__":
         message = house
         print(f"Message to be print: {message}")
         kafka_prod_obj.send(KAFKA_TOPIC_NAME, message)
-        time.sleep(20)
+        time.sleep(.5)
