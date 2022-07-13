@@ -184,7 +184,7 @@ KEYSPACE is Database equivalent
 CREATE KEYSPACE movielens WITH replication = {'class': 'SinmpleStrategy', 'replication_factor' = 1} AND durable_writes = true;
 USE movielens;
 CREATE TABLE users (user_id int, age int, gender text, occupation text, zip text, PRIMARRY_KEY (user_id));
-CREATE TABLE house (no int, timestamp time, houseage int, distancetomrt int, numberconveniencestores int, latitude int, longitude int, priceofunitarea int, PRIMARY_KEY(no));
+CREATE TABLE house (no int, timestamp varchar(20), houseage varchar(20), distancetomrt varchar(20), numberconveniencestores varchar(20), latitude varchar(20), longitude varchar(20), priceofunitarea varchar(20), PRIMARY KEY(no));
 
 .add("no", StringType()) \
         .add("timestamp", StringType()) \

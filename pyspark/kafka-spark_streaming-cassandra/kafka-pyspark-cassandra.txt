@@ -25,6 +25,24 @@ spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.0,com.dat
 https://spark.apache.org/third-party-projects.html
 com.datastax.spark:spark-cassandra-connector_2.11:2.3.2
 
+spark-mysql connector
+spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.0,mysql:mysql-connector-java:8.0.13 data_processing.py
+
+################################################
+mysql db:
+localhost
+3306
+root
+mysql7860*
+mysqldb1
+house
+
+command to start mysql editor
+mysql -u root -p
+
+CREATE TABLE house (no int, timestamp varchar(20), houseage varchar(20), distancetomrt varchar(20), numberconveniencestores varchar(20), latitude varchar(20), longitude varchar(20), priceofunitarea varchar(20));
+
+################################################
 
 
 
@@ -141,3 +159,25 @@ https://spark.apache.org/third-party-projects.html
 
 
 ##################################################
+Error5
+22/07/13 20:40:27 ERROR TaskSetManager: Task 0 in stage 1.0 failed 1 times; aborting job
+22/07/13 20:40:28 ERROR MicroBatchExecution: Query [id = 74aa5ef6-d530-4995-b04d-0960989af268, runId = c096a368-f8aa-4490-99e5-ca8174ef1fdf] terminated with error
+py4j.Py4JException: An exception was raised by the Python Proxy. Return Messmost recent callage: Traceback ( last):
+  File "C:\spark3\python\lib\py4j-0.10.9.5-src.zip\py4j\clientserver.py", line 617, in _call_proxy
+    return_value = getattr(self.pool[obj_id], method)(*params)
+  File "C:\spark3\python\lib\pyspark.zip\pyspark\sql\utils.py", line 272, in call
+    raise e
+  File "C:\spark3\python\lib\pyspark.zip\pyspark\sql\utils.py", line 269, in call
+    self.func(DataFrame(jdf, self.session), batch_id)
+  File "C:/Users/04647U744/Documents/Github0/bigdata/pyspark/kafka-spark_streaming-cassandra/data_processing.py", line 60, in save_to_mysql
+    df_.write.jdbc(url=MYSQL_JDBC_URL, table=MYSQL_TABLE, mode="append", properties=db_creds)
+  File "C:\spark3\python\lib\pyspark.zip\pyspark\sql\readwriter.py", line 1340, in jdbc
+    self.mode(mode)._jwrite.jdbc(url, table, jprop)
+  File "C:\spark3\python\lib\py4j-0.10.9.5-src.zip\py4j\java_gateway.py", line 1322, in __call__
+    answer, self.gateway_client, self.target_id, self.name)
+  File "C:\spark3\python\lib\pyspark.zip\pyspark\sql\utils.py", line 190, in deco
+    return f(*a, **kw)
+  File "C:\spark3\python\lib\py4j-0.10.9.5-src.zip\py4j\protocol.py", line 328, in get_return_value
+    format(target_id, ".", name), value)
+py4j.protocol.Py4JJavaError: An error occurred while calling o67.jdbc.
+: org.apache.spark.SparkException: Job aborted due to stage failure: Task 0 in stage 1.0 failed 1 times, most recent failure: Lost task 0.0 in stage 1.0 (TID 1) (host.docker.internal executor driver): java.sql.BatchUpdateException: Duplicate entry '12' for key 'house.PRIMARY'
