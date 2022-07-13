@@ -4,15 +4,16 @@ from kafka import KafkaProducer
 from json import dumps
 import pandas as pd
 
-KAFKA_TOPIC_NAME = "house"
+KAFKA_TOPIC_NAME = "house1"
 KAFKA_BOOTSTRAP_SERVERS = "localhost:9092"
 
 if __name__ == "__main__":
     print("Kafka Producer Application Started....")
 
     kafka_prod_obj = KafkaProducer(bootstrap_servers=KAFKA_BOOTSTRAP_SERVERS,
+                                   api_version=(0, 11, 5),
                                    value_serializer=lambda x: dumps(x).encode("utf-8"))
-    file_path = "C:/Users/04647U744/Documents/Github/pyspark/realestate.csv"
+    file_path = "C:/Users/04647U744/Documents/Github0/bigdata/pyspark/data/realestate1.csv"
     house_df = pd.read_csv(file_path)
     print(house_df.head())
 
