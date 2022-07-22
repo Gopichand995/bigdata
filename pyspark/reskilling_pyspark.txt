@@ -6,7 +6,7 @@ spark mcq test/assessment preperation
 https://data-flair.training/blogs/apache-spark-online-quiz-part-1/
 
 #########################################################
-Pre-Requisitea
+Pre-Requisites
 
 Excelerate Essential Courses
 https://w3.ibm.com/w3publisher/excelerate-data-services/essential-courses
@@ -50,7 +50,7 @@ To Dos Final:
 
 quiz practice for spark
 https://r4r.in/mcqs/?subid=213&subcat=pySpark  ---> completed
-https://engineeringinterviewquestions.com/category/pyspark-questions/  --->
+https://engineeringinterviewquestions.com/category/pyspark-questions/  ---> completed
 https://data-flair.training/blogs/apache-spark-online-quiz-part-1/   ---> completed
 
 video-lectures
@@ -65,5 +65,13 @@ certification
 https://ibm-learning.udemy.com/course/cca-175-spark-and-hadoop-developer-python-pyspark/learn/lecture/32611344#overview
 
 #########################################################
+kaggle pyspark urls
+https://www.kaggle.com/code/prakashdhimal/movie-recommendation-system-pyspark/notebook
+https://www.kaggle.com/code/alfarias/movie-recommendation-system-with-als-in-pyspark/data
 #########################################################
+
+Supplemental material (code examples, exercises, etc.) is available for download
+https://github.com/sryza/aas
+
+
 

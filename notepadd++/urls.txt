@@ -166,3 +166,13 @@ https://devices.wdc1a.cirrus.ibm.com/#/
 
 LPA (Locked Period Adjustment)
 http://ibm.biz/LPAIndia
+
+wifi issues
+https://www.youtube.com/watch?v=ZVm6GBw-paM&ab_channel=SandeepSingh
+
+pyspark
+https://sparkbyexamples.com/pyspark/
+
+Unable to load authentication plugin 'caching_sha2_password' [duplicate]
+https://stackoverflow.com/questions/50193771/unable-to-load-authentication-plugin-caching-sha2-password
+

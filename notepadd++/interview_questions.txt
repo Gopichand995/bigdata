@@ -1,0 +1,37 @@
+July 22, 2022	    4:20 PM	    from Hiten Raheja (IBM) to everyone:	empid, salary, mgrid 
+
+July 22, 2022	    4:20 PM	    from Hiten Raheja (IBM) to everyone:	Sample
+1, 10000, 2
+2, 6000,
+3, 20000, 20
+4, 50000, 5
+5, 30000, 
+
+July 22, 2022	    4:26 PM	    from Hiten Raheja (IBM) to everyone:	Student_name  subject Marks  
+Hiten  Hindi   40
+Hiten  Math    50
+Hiten  Sci       50
+Vaibhav Maths   70
+Vaibhav Science  50    
+
+July 22, 2022	    4:27 PM	    from Hiten Raheja (IBM) to everyone:	Student_name Total_Marks Avg
+Hiten 140  45
+Vaibhav 120 60
+
+July 22, 2022	    4:30 PM	    from Hiten Raheja (IBM) to everyone:	select empid from Employee order by 2 desc;
+
+July 22, 2022	    4:36 PM	    from Hiten Raheja (IBM) to everyone:	date_input = "2021-08-01"
+
+July 22, 2022	    4:37 PM	    from Hiten Raheja (IBM) to everyone:	dd-mm-yyyy
+
+July 22, 2022	    4:38 PM	    from Hiten Raheja (IBM) to everyone:	list1 --> [1,2,3,4,5,...]
+list2 --> Empty List
+
+July 22, 2022	    4:38 PM	    from Hiten Raheja (IBM) to everyone:	dict --> {1 -> list2, 2 -> list2, 3 -> list2, 4 -> list2, 5 -> list2}
+
+July 22, 2022	    4:39 PM	    from Hiten Raheja (IBM) to everyone:	Hello World"[::-1]
+
+July 22, 2022	    4:40 PM	    from Hiten Raheja (IBM) to everyone:	df.select("name","address")
+
+July 22, 2022	    4:41 PM	    from Hiten Raheja (IBM) to everyone:	CreadtedBy : Hiten 
+

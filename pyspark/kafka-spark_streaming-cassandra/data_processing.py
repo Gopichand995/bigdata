@@ -35,6 +35,7 @@ CASSANDRA_PORT = "9042"
 # CASSANDRA_KEYSPACE = "realestate"
 # CASSANDRA_TABLE = "house"
 
+# mysql mysql -uroot -p
 MYSQL_HOST = "localhost"
 MYSQL_PORT = "3306"
 MYSQL_DATABASE = "mysqldb1"

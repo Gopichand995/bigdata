@@ -13,7 +13,7 @@ if __name__ == "__main__":
     kafka_prod_obj = KafkaProducer(bootstrap_servers=KAFKA_BOOTSTRAP_SERVERS,
                                    api_version=(0, 11, 5),
                                    value_serializer=lambda x: dumps(x).encode("utf-8"))
-    file_path = "realestate1.csv"
+    file_path = "data/realestate1.csv"
     house_df = pd.read_csv(file_path)
     print(house_df.head())
 
